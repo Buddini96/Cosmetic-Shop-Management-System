@@ -5,6 +5,7 @@ package lk.ijse.cosmeticshop.model;
     @created 11/26/2022 - 10:49 PM   
 */
 
+import lk.ijse.cosmeticshop.entity.DCompanyDTO;
 import lk.ijse.cosmeticshop.to.Delivery;
 import lk.ijse.cosmeticshop.dao.CrudUtil;
 
@@ -14,12 +15,12 @@ import java.util.ArrayList;
 
 public class DeliveryModel {
 
-        public static ArrayList<Delivery> getDeliveryData() throws SQLException, ClassNotFoundException {
-        ArrayList<Delivery> deliveriesData = new ArrayList<>();
+        public static ArrayList<DCompanyDTO> getDeliveryData() throws SQLException, ClassNotFoundException {
+        ArrayList<DCompanyDTO> deliveriesData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM deliverycompany ORDER BY CAST(SUBSTRING(deliveryCode, 2) AS UNSIGNED)");
         while (rs.next()){
-            deliveriesData.add(new Delivery(rs.getString("deliveryCode"),
+            deliveriesData.add(new DCompanyDTO(rs.getString("deliveryCode"),
                     rs.getString("Name"),
                     rs.getDouble("Payment")));
         }

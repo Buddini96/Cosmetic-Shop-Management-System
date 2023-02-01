@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.cosmeticshop.entity.ProductDTO;
 import lk.ijse.cosmeticshop.model.ProductModel;
 import lk.ijse.cosmeticshop.to.Product;
 import lk.ijse.cosmeticshop.util.Navigation;
@@ -53,13 +54,12 @@ public class ProductFormController implements Initializable {
     }
 
     private void loadAllProducts(String text) {
-        ObservableList<Product> proList = FXCollections.observableArrayList();
-
+        ObservableList<ProductDTO> proList = FXCollections.observableArrayList();
         try{
-            ArrayList<Product> productsData = ProductModel.getProductData();
-            for (Product product:productsData){
-                if(product.getCode().contains(text) || product.getDescription().contains(text)){
-                    Product p = new Product(product.getCode(), product.getDescription(), product.getPrice(), product.getQtyOnHand());
+            ArrayList<ProductDTO> productsData = ProductModel.getProductData();
+            for (ProductDTO product:productsData){
+                if(product.getProductCode().contains(text) || product.getDescription().contains(text)){
+                    ProductDTO p = new ProductDTO(product.getProductCode(), product.getDescription(), product.getUnitprice(), product.getQtyOnHand());
                     proList.add(p);
                 }
             }

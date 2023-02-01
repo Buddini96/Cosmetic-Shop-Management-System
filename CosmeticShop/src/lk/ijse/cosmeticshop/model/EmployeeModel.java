@@ -5,6 +5,7 @@ package lk.ijse.cosmeticshop.model;
     @created 11/26/2022 - 8:12 PM   
 */
 
+import lk.ijse.cosmeticshop.entity.EmployeeDTO;
 import lk.ijse.cosmeticshop.to.Employee;
 import lk.ijse.cosmeticshop.dao.CrudUtil;
 import java.sql.ResultSet;
@@ -13,12 +14,12 @@ import java.util.ArrayList;
 
 public class EmployeeModel {
 
-    public static ArrayList<Employee> getEmployeeData() throws SQLException, ClassNotFoundException {
-        ArrayList<Employee> employeesData = new ArrayList<>();
+    public static ArrayList<EmployeeDTO> getEmployeeData() throws SQLException, ClassNotFoundException {
+        ArrayList<EmployeeDTO> employeesData = new ArrayList<>();
 
-        ResultSet rs = CrudUtil.execute("SELECT * FROM Employee ORDER BY CAST(SUBSTRING(employeeID, 2) AS UNSIGNED)");
+        ResultSet rs = CrudUtil.execute("SELECT * FROM Employee");
         while (rs.next()){
-            employeesData.add(new Employee(rs.getString("employeeID"),
+            employeesData.add(new EmployeeDTO(rs.getString("employeeID"),
                     rs.getString("name"),
                     rs.getString("address"),
                     rs.getDouble("salary"),

@@ -13,6 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.cosmeticshop.bo.BOFactory;
+import lk.ijse.cosmeticshop.bo.custom.CustomerBO;
+import lk.ijse.cosmeticshop.bo.custom.SupplierBO;
+import lk.ijse.cosmeticshop.dao.custom.SupplierDAO;
+import lk.ijse.cosmeticshop.dao.custom.impl.SupplierDAOImpl;
+import lk.ijse.cosmeticshop.entity.SupplierDTO;
 import lk.ijse.cosmeticshop.model.CustomerModel;
 import lk.ijse.cosmeticshop.model.SupplierModel;
 import lk.ijse.cosmeticshop.to.Customer;
@@ -37,11 +43,12 @@ public class SupplierFormController implements Initializable {
     public TableColumn colName;
     public TableColumn colDescription;
 
-    ObservableList<Supplier> supList = FXCollections.observableArrayList();
+    ObservableList<SupplierDTO> supList = FXCollections.observableArrayList();
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supId"));
+        colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supplierID"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
@@ -54,13 +61,13 @@ public class SupplierFormController implements Initializable {
     }
 
     private void loadAllSuppliers(String text) {
-        ObservableList<Supplier> supList = FXCollections.observableArrayList();
+        ObservableList<SupplierDTO> supList = FXCollections.observableArrayList();
 
         try{
-            ArrayList<Supplier> suppliersData = SupplierModel.getSupplierData();
-            for (Supplier supplier:suppliersData){
-                if(supplier.getSupId().contains(text) || supplier.getName().contains(text)){
-                    Supplier s = new Supplier(supplier.getSupId(), supplier.getName(), supplier.getDescription());
+            ArrayList<SupplierDTO> suppliersData = SupplierModel.getSupplierData();
+            for (SupplierDTO supplier:suppliersData){
+                if(supplier.getSupplierID().contains(text) || supplier.getName().contains(text)){
+                    SupplierDTO s = new SupplierDTO(supplier.getSupplierID(), supplier.getName(), supplier.getDescription());
                     supList.add(s);
                 }
             }
@@ -76,9 +83,9 @@ public class SupplierFormController implements Initializable {
         String name = txtName.getText();
         String description = txtDescription.getText();
 
-        Supplier supplier = new Supplier(supId,name,description);
+        SupplierDTO supplierDTO = new SupplierDTO(supId,name,description);
         try{
-            boolean isAdded = SupplierModel.save(supplier);
+            boolean isAdded = supplierBO.addSupplier(supplierDTO);
             if (isAdded){
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier Added Successfully!").show();
             }else {
@@ -88,8 +95,8 @@ public class SupplierFormController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<Supplier> suppliers = tblSupplier.getItems();
-        suppliers.add(supplier);
+        ObservableList<SupplierDTO> suppliers = tblSupplier.getItems();
+        suppliers.add(supplierDTO);
         tblSupplier.setItems(suppliers);
 
     }
@@ -100,11 +107,10 @@ public class SupplierFormController implements Initializable {
         String description = txtDescription.getText();
 
         try{
-            Supplier supplier = new Supplier(supId,name,description);
-            boolean isUpdated = SupplierModel.update(supplier, supId);
+            boolean isUpdated = supplierBO.updateSupplier(new SupplierDTO(txtSupplierId.getText(), txtName.getText(), txtDescription.getText()));
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier Updated Successfully!").show();
-                colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supId"));
+                colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supplierID"));
                 colName.setCellValueFactory(new PropertyValueFactory<>("name"));
                 colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
@@ -121,11 +127,11 @@ public class SupplierFormController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<Supplier> currentTableData = tblSupplier.getItems();
+        ObservableList<SupplierDTO> currentTableData = tblSupplier.getItems();
         String currentSupplierId = txtSupplierId.getText();
 
-        for(Supplier supplier : currentTableData){
-            if(supplier.getSupId() == currentSupplierId){
+        for(SupplierDTO supplier : currentTableData){
+            if(supplier.getSupplierID() == currentSupplierId){
                 supplier.setName(txtName.getText());
                 supplier.setDescription(txtDescription.getText());
 
@@ -148,8 +154,7 @@ public class SupplierFormController implements Initializable {
         String description = txtDescription.getText();
 
         try{
-            Supplier supplier = new Supplier(supId,name,description);
-            boolean isDeleted = SupplierModel.delete(supplier, supId);
+            boolean isDeleted = supplierBO.deleteSupplier(supId);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier Deleted Successfully!").show();
             }else {
@@ -185,8 +190,8 @@ public class SupplierFormController implements Initializable {
     }
 
     public void rowClicked(MouseEvent mouseEvent) {
-        Supplier clickedSupplier = (Supplier) tblSupplier.getSelectionModel().getSelectedItem();
-        txtSupplierId.setText(String.valueOf(clickedSupplier.getSupId()));
+        SupplierDTO clickedSupplier = (SupplierDTO) tblSupplier.getSelectionModel().getSelectedItem();
+        txtSupplierId.setText(String.valueOf(clickedSupplier.getSupplierID()));
         txtName.setText(String.valueOf(clickedSupplier.getName()));
         txtDescription.setText(String.valueOf(clickedSupplier.getDescription()));
     }
@@ -194,17 +199,18 @@ public class SupplierFormController implements Initializable {
     public void txtSearchOnAction(ActionEvent actionEvent) {
         String supId = txtSearch.getText();
         try{
-            Supplier supplier = SupplierModel.search(supId);
-            if (supplier != null){
-                fillData(supplier);
+            SupplierDAO supplierDAO = new SupplierDAOImpl();
+            SupplierDTO search = supplierDAO.search(supId);
+            if (search != null){
+                fillData(search);
             }
         }catch (SQLException | ClassNotFoundException e){
             throw new RuntimeException(e);
         }
     }
 
-    private void fillData(Supplier supplier) {
-        txtSupplierId.setText(supplier.getSupId());
+    private void fillData(SupplierDTO supplier) {
+        txtSupplierId.setText(supplier.getSupplierID());
         txtName.setText(supplier.getName());
         txtDescription.setText(supplier.getDescription());
     }
@@ -212,7 +218,7 @@ public class SupplierFormController implements Initializable {
     public void txtSupplierIdOnAction(ActionEvent actionEvent) {
         String supId = txtSupplierId.getText();
         try{
-            Supplier supplier = SupplierModel.search(supId);
+            SupplierDTO supplier = supplierBO.searchSupplier(supId);
             if (supplier != null){
                 fillData(supplier);
             }

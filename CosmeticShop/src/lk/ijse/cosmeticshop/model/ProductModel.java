@@ -6,6 +6,7 @@ package lk.ijse.cosmeticshop.model;
 */
 
 
+import lk.ijse.cosmeticshop.entity.ProductDTO;
 import lk.ijse.cosmeticshop.to.CartDetail;
 import lk.ijse.cosmeticshop.to.Product;
 import lk.ijse.cosmeticshop.dao.CrudUtil;
@@ -16,12 +17,12 @@ import java.util.ArrayList;
 
 public class ProductModel {
 
-    public static ArrayList<Product> getProductData() throws SQLException, ClassNotFoundException {
-        ArrayList<Product> productsData = new ArrayList<>();
+    public static ArrayList<ProductDTO> getProductData() throws SQLException, ClassNotFoundException {
+        ArrayList<ProductDTO> productsData = new ArrayList<>();
 
         ResultSet rs = CrudUtil.execute("SELECT * FROM Product ORDER BY CAST(SUBSTRING(productCode, 2) AS UNSIGNED)");
         while (rs.next()){
-            productsData.add(new Product(rs.getString("productCode"),
+            productsData.add(new ProductDTO(rs.getString("productCode"),
                     rs.getString("Description"),
                     rs.getDouble("Unitprice"),
                     rs.getInt("qtyOnHand")));

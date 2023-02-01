@@ -12,9 +12,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.cosmeticshop.bo.BOFactory;
+import lk.ijse.cosmeticshop.bo.custom.ProductBO;
+import lk.ijse.cosmeticshop.dao.custom.ProductDAO;
+import lk.ijse.cosmeticshop.dao.custom.impl.ProductDAOImpl;
+import lk.ijse.cosmeticshop.entity.CustomerDTO;
+import lk.ijse.cosmeticshop.entity.ProductDTO;
 import lk.ijse.cosmeticshop.model.CustomerModel;
 import lk.ijse.cosmeticshop.model.ProductModel;
-import lk.ijse.cosmeticshop.to.Customer;
 import lk.ijse.cosmeticshop.to.Product;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
@@ -38,10 +43,12 @@ public class ProductFormAdminController implements Initializable {
     public TextField txtQtyOnHand;
     public TableColumn colQtyOnHand;
 
-    ObservableList<Product> proList = FXCollections.observableArrayList();
+    ObservableList<ProductDTO> proList = FXCollections.observableArrayList();
+    ProductBO productBO= (ProductBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.PRODUCT);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
@@ -55,13 +62,12 @@ public class ProductFormAdminController implements Initializable {
     }
 
     private void loadAllProducts(String text) {
-        ObservableList<Product> proList = FXCollections.observableArrayList();
-
+        ObservableList<ProductDTO> proList = FXCollections.observableArrayList();
         try{
-            ArrayList<Product> productsData = ProductModel.getProductData();
-            for (Product product:productsData){
-                if(product.getCode().contains(text) || product.getDescription().contains(text)){
-                    Product p = new Product(product.getCode(), product.getDescription(), product.getPrice(), product.getQtyOnHand());
+            ArrayList<ProductDTO> productsData = ProductModel.getProductData();
+            for (ProductDTO product:productsData){
+                if(product.getProductCode().contains(text) || product.getDescription().contains(text)){
+                    ProductDTO p = new ProductDTO(product.getProductCode(), product.getDescription(), product.getUnitprice(), product.getQtyOnHand());
                     proList.add(p);
                 }
             }
@@ -104,9 +110,10 @@ public class ProductFormAdminController implements Initializable {
         double price = Double.parseDouble(txtUnitPrice.getText());
         int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
 
-        Product product = new Product(code,description,price,qtyOnHand);
+        //Product product = new Product(code,description,price,qtyOnHand);
+        ProductDTO productDTO = new ProductDTO(code,description,price,qtyOnHand);
         try{
-            boolean isAdded = ProductModel.save(product);
+            boolean isAdded = productBO.addProduct(productDTO);
             if (isAdded){
                 new Alert(Alert.AlertType.CONFIRMATION, "Product Added Successfully!").show();
             }else {
@@ -116,8 +123,8 @@ public class ProductFormAdminController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<Product> products = tblProduct.getItems();
-        products.add(product);
+        ObservableList<ProductDTO> products = tblProduct.getItems();
+        products.add(productDTO);
         tblProduct.setItems(products);
 
     }
@@ -129,13 +136,13 @@ public class ProductFormAdminController implements Initializable {
         int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
 
         try{
-            Product product = new Product(code,description,price,qtyOnHand);
-            boolean isUpdated = ProductModel.update(product, code);
+            //Product product = new Product(code,description,price,qtyOnHand);
+            boolean isUpdated = productBO.updateProduct(new ProductDTO(txtProductCode.getText(), txtDescription.getText(), txtUnitPrice.getText(), txtQtyOnHand.getText()));
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION, "Product Updated Successfully!").show();
-                colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+                colCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
                 colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-                colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+                colPrice.setCellValueFactory(new PropertyValueFactory<>("Unitprice"));
                 colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
 
                 //Search bar
@@ -152,13 +159,13 @@ public class ProductFormAdminController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<Product> currentTableData = tblProduct.getItems();
+        ObservableList<ProductDTO> currentTableData = tblProduct.getItems();
         String currentProductId = txtProductCode.getText();
 
-        for(Product product : currentTableData){
-            if(product.getCode() == currentProductId){
+        for(ProductDTO product : currentTableData){
+            if(product.getProductCode() == currentProductId){
                 product.setDescription(txtDescription.getText());
-                product.setPrice(Double.parseDouble(txtUnitPrice.getText()));
+                product.setUnitprice(Double.parseDouble(txtUnitPrice.getText()));
                 product.setQtyOnHand(Integer.parseInt(txtQtyOnHand.getText()));
 
                 tblProduct.setItems(currentTableData);
@@ -177,13 +184,10 @@ public class ProductFormAdminController implements Initializable {
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String code = txtProductCode.getText();
-        String description = txtDescription.getText();
-        double price = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
 
         try{
-            Product product = new Product(code,description,price, qtyOnHand);
-            boolean isDeleted = ProductModel.delete(product, code);
+            //Product product = new Product(code,description,price, qtyOnHand);
+            boolean isDeleted = productBO.deleteProduct(code);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION, "Product Deleted Successfully!").show();
             }else {
@@ -198,20 +202,20 @@ public class ProductFormAdminController implements Initializable {
     }
 
     public void rowClicked(MouseEvent mouseEvent) {
-        Product clickedProduct = (Product) tblProduct.getSelectionModel().getSelectedItem();
-        txtProductCode.setText(String.valueOf(clickedProduct.getCode()));
+        ProductDTO clickedProduct = (ProductDTO) tblProduct.getSelectionModel().getSelectedItem();
+        txtProductCode.setText(String.valueOf(clickedProduct.getProductCode()));
         txtDescription.setText(String.valueOf(clickedProduct.getDescription()));
-        txtUnitPrice.setText(String.valueOf(clickedProduct.getPrice()));
+        txtUnitPrice.setText(String.valueOf(clickedProduct.getUnitprice()));
         txtQtyOnHand.setText(String.valueOf(clickedProduct.getQtyOnHand()));
     }
 
     public void txtSearchOnAction(ActionEvent actionEvent) {
-        System.out.println("Type wenwa");
         String code = txtSearch.getText();
         try{
-            Product product = ProductModel.search(code);
-            if (product != null){
-                fillData(product);
+            ProductDAO productDAO = new ProductDAOImpl();
+            ProductDTO search = productDAO.search(code);
+            if (search != null){
+                fillData(search);
             }
         }catch (SQLException | ClassNotFoundException e){
             throw new RuntimeException(e);
@@ -219,23 +223,21 @@ public class ProductFormAdminController implements Initializable {
     }
 
     public void txtProductCodeOnAction(ActionEvent actionEvent) {
-
         String code = txtProductCode.getText();
         try {
-            Product product = ProductModel.search(code);
+            ProductDTO product = productBO.searchProduct(code);
             if (product != null){
                 fillData(product);
-
             }
         }catch (SQLException | ClassNotFoundException e){
             throw new RuntimeException(e);
         }
     }
 
-    private void fillData(Product product){
-        txtProductCode.setText(product.getCode());
+    private void fillData(ProductDTO product){
+        txtProductCode.setText(product.getProductCode());
         txtDescription.setText(product.getDescription());
-        txtUnitPrice.setText(String.valueOf(product.getPrice()));
+        txtUnitPrice.setText(String.valueOf(product.getUnitprice()));
         txtQtyOnHand.setText(String.valueOf(product.getQtyOnHand()));
 
     }

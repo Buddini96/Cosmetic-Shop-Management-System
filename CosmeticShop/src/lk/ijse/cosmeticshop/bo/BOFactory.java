@@ -7,7 +7,7 @@ package lk.ijse.cosmeticshop.bo;
 
 
 import lk.ijse.cosmeticshop.bo.custom.CustomerBO;
-import lk.ijse.cosmeticshop.bo.custom.impl.CustomerBOImpl;
+import lk.ijse.cosmeticshop.bo.custom.impl.*;
 import lk.ijse.cosmeticshop.dao.DAOFactory;
 import lk.ijse.cosmeticshop.dao.SuperDAO;
 import lk.ijse.cosmeticshop.dao.custom.impl.CustomerDAOImpl;
@@ -24,15 +24,21 @@ public class BOFactory {
     }
 
     public enum BOTypes {
-        CUSTOMER,ITEM,ORDER,ORDER_DETAILS
+        CUSTOMER,PRODUCT,ORDER,ORDER_DETAILS,DELIVERY_COMPANY,EMPLOYEE,SUPPLIER
     }
 
     public SuperBO getBO(BOFactory.BOTypes types){
         switch (types) {
             case CUSTOMER:
                 return new CustomerBOImpl();
-            case ITEM:
-                return null;
+            case PRODUCT:
+                return new ProductBOImpl();
+            case DELIVERY_COMPANY:
+                return new DCompanyBOImpl();
+            case EMPLOYEE:
+                return new EmployeeBOImpl();
+            case SUPPLIER:
+                return new SupplierBOImpl();
             case ORDER:
                 return null;
             case ORDER_DETAILS:

@@ -13,13 +13,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface CustomerBO extends SuperBO {
-    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException;
+    ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException;
 
-    public boolean add(CustomerDTO entity) throws SQLException, ClassNotFoundException;
+    boolean add(CustomerDTO dto) throws SQLException, ClassNotFoundException;
 
-    public boolean update(CustomerDTO entity) throws SQLException, ClassNotFoundException;
+    boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException;
 
-    public boolean delete(String id) throws SQLException, ClassNotFoundException;
+    boolean delete(String id) throws SQLException, ClassNotFoundException;
 
-    public CustomerDTO search(String id) throws SQLException, ClassNotFoundException;
+    CustomerDTO search(String id) throws SQLException, ClassNotFoundException;
 }

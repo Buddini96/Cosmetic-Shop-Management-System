@@ -12,6 +12,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.cosmeticshop.bo.BOFactory;
+import lk.ijse.cosmeticshop.bo.custom.DCompanyBO;
+import lk.ijse.cosmeticshop.dao.custom.CustomerDAO;
+import lk.ijse.cosmeticshop.dao.custom.DCompanyDAO;
+import lk.ijse.cosmeticshop.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.cosmeticshop.dao.custom.impl.DCompanyDAOImpl;
+import lk.ijse.cosmeticshop.entity.CustomerDTO;
+import lk.ijse.cosmeticshop.entity.DCompanyDTO;
 import lk.ijse.cosmeticshop.model.DeliveryModel;
 import lk.ijse.cosmeticshop.to.Delivery;
 import lk.ijse.cosmeticshop.util.Navigation;
@@ -35,10 +43,11 @@ public class DeliveryFormController implements Initializable {
     public TableColumn colName;
     public TableColumn colPayment;
 
-    ObservableList<Delivery> delList = FXCollections.observableArrayList();
+    ObservableList<DCompanyDTO> delList = FXCollections.observableArrayList();
+    DCompanyBO dCompanyBO = (DCompanyBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.DELIVERY_COMPANY);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        colDeliveryCode.setCellValueFactory(new PropertyValueFactory<>("Dcode"));
+        colDeliveryCode.setCellValueFactory(new PropertyValueFactory<>("deliveryCode"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPayment.setCellValueFactory(new PropertyValueFactory<>("payment"));
 
@@ -51,13 +60,12 @@ public class DeliveryFormController implements Initializable {
     }
 
     private void loadAllDeliveries(String text) {
-        ObservableList<Delivery> delList = FXCollections.observableArrayList();
-
+        ObservableList<DCompanyDTO> delList = FXCollections.observableArrayList();
         try{
-            ArrayList<Delivery> deliveriesData = DeliveryModel.getDeliveryData();
-            for (Delivery delivery:deliveriesData){
-                if(delivery.getDcode().contains(text) || delivery.getName().contains(text)){
-                    Delivery d = new Delivery(delivery.getDcode(), delivery.getName(), delivery.getPayment());
+            ArrayList<DCompanyDTO> deliveriesData = DeliveryModel.getDeliveryData();
+            for (DCompanyDTO delivery:deliveriesData){
+                if(delivery.getDeliveryCode().contains(text) || delivery.getName().contains(text)){
+                    DCompanyDTO d = new DCompanyDTO(delivery.getDeliveryCode(), delivery.getName(), delivery.getPayment());
                     delList.add(d);
                 }
             }
@@ -99,9 +107,9 @@ public class DeliveryFormController implements Initializable {
         String name = txtName.getText();
         double payment = Double.parseDouble(txtPayment.getText());
 
-        Delivery delivery = new Delivery(Dcode,name,payment);
+        DCompanyDTO dCompanyDTO = new DCompanyDTO(Dcode,name,payment);
         try{
-            boolean isAdded = DeliveryModel.save(delivery);
+            boolean isAdded = dCompanyBO.addDCompany(dCompanyDTO);
             if (isAdded){
                 new Alert(Alert.AlertType.CONFIRMATION, "Delivery Added Successfully!").show();
             }else {
@@ -111,8 +119,8 @@ public class DeliveryFormController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<Delivery> deliveries = tblDelivery.getItems();
-        deliveries.add(delivery);
+        ObservableList<DCompanyDTO> deliveries = tblDelivery.getItems();
+        deliveries.add(dCompanyDTO);
         tblDelivery.setItems(deliveries);
     }
 
@@ -122,11 +130,13 @@ public class DeliveryFormController implements Initializable {
         double payment = Double.parseDouble(txtPayment.getText());
 
         try{
-            Delivery delivery = new Delivery(Dcode,name,payment);
-            boolean isUpdated = DeliveryModel.update(delivery, Dcode);
+            //Delivery delivery = new Delivery(Dcode,name,payment);
+
+            //boolean isUpdated = DeliveryModel.update(delivery, Dcode);
+            boolean isUpdated = dCompanyBO.updateDCompany(new DCompanyDTO(txtDeliveryCode.getText(), txtName.getText(), txtPayment.getText()));
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION, "Delivery Updated Successfully!").show();
-                colDeliveryCode.setCellValueFactory(new PropertyValueFactory<>("Dcode"));
+                colDeliveryCode.setCellValueFactory(new PropertyValueFactory<>("deliveryCode"));
                 colName.setCellValueFactory(new PropertyValueFactory<>("name"));
                 colPayment.setCellValueFactory(new PropertyValueFactory<>("payment"));
 
@@ -144,11 +154,11 @@ public class DeliveryFormController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<Delivery> currentTableData = tblDelivery.getItems();
+        ObservableList<DCompanyDTO> currentTableData = tblDelivery.getItems();
         String currentDeliveryCode = txtDeliveryCode.getText();
 
-        for(Delivery delivery : currentTableData){
-            if(delivery.getDcode() == currentDeliveryCode){
+        for(DCompanyDTO delivery : currentTableData){
+            if(delivery.getDeliveryCode() == currentDeliveryCode){
                 delivery.setName(txtName.getText());
                 delivery.setPayment(Double.parseDouble(txtPayment.getText()));
 
@@ -166,14 +176,10 @@ public class DeliveryFormController implements Initializable {
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
-
         String Dcode = txtDeliveryCode.getText();
-        String name = txtName.getText();
-        double payment = Double.parseDouble(txtPayment.getText());
-
         try{
-            Delivery delivery = new Delivery(Dcode,name,payment);
-            boolean isDeleted = DeliveryModel.delete(delivery, Dcode);
+
+            boolean isDeleted = dCompanyBO.deleteDCompany(Dcode);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION, "Delivery Deleted Successfully!").show();
             }else {
@@ -191,36 +197,41 @@ public class DeliveryFormController implements Initializable {
     public void txtDeliveryCodeOnAction(ActionEvent actionEvent) {
         String Dcode = txtDeliveryCode.getText();
         try {
-            Delivery delivery = DeliveryModel.search(Dcode);
-            if (delivery != null){
+            DCompanyDTO delivery = dCompanyBO.searchDCompany(Dcode);
+            if (delivery != null) {
                 fillData(delivery);
             }
+            new Alert(Alert.AlertType.ERROR, "Empty Result..!").show();
         }catch (SQLException | ClassNotFoundException e){
             throw new RuntimeException(e);
         }
     }
 
-    private void fillData(Delivery delivery) {
-        txtDeliveryCode.setText(delivery.getDcode());
+    private void fillData(DCompanyDTO delivery) {
+        txtDeliveryCode.setText(delivery.getDeliveryCode());
         txtName.setText(delivery.getName());
         txtPayment.setText(String.valueOf(delivery.getPayment()));
     }
 
     public void rowClicked(MouseEvent mouseEvent) {
-        Delivery clickedDelivery = (Delivery) tblDelivery.getSelectionModel().getSelectedItem();
-        txtDeliveryCode.setText(String.valueOf(clickedDelivery.getDcode()));
+        DCompanyDTO clickedDelivery = (DCompanyDTO) tblDelivery.getSelectionModel().getSelectedItem();
+        txtDeliveryCode.setText(String.valueOf(clickedDelivery.getDeliveryCode()));
         txtName.setText(String.valueOf(clickedDelivery.getName()));
         txtPayment.setText(String.valueOf(clickedDelivery.getPayment()));
     }
 
     public void txtSearchOnAction(ActionEvent actionEvent) {
-        String Dcode = txtSearch.getText();
-        try{
-            Delivery delivery = DeliveryModel.search(Dcode);
-            if (delivery != null){
-                fillData(delivery);
+        String id = txtSearch.getText();
+        try {
+            DCompanyDAO dCompanyDAO = new DCompanyDAOImpl();
+            DCompanyDTO search = dCompanyDAO.search(id);
+            if (search != null) {
+
+                fillData(search);
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Empty Result..!").show();
             }
-        }catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

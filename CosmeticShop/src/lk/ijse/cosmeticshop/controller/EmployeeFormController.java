@@ -12,6 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.cosmeticshop.bo.BOFactory;
+import lk.ijse.cosmeticshop.bo.custom.EmployeeBO;
+import lk.ijse.cosmeticshop.dao.custom.EmployeeDAO;
+import lk.ijse.cosmeticshop.dao.custom.impl.EmployeeDAOImpl;
+import lk.ijse.cosmeticshop.entity.EmployeeDTO;
 import lk.ijse.cosmeticshop.model.EmployeeModel;
 import lk.ijse.cosmeticshop.to.Employee;
 import lk.ijse.cosmeticshop.util.Navigation;
@@ -40,16 +45,17 @@ public class EmployeeFormController implements Initializable {
     public TableColumn colSecCode;
     public TextField txtSectionCode;
 
-    ObservableList<Employee> empList = FXCollections.observableArrayList();
+    ObservableList<EmployeeDTO> empList = FXCollections.observableArrayList();
+    EmployeeBO employeeBO= (EmployeeBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
         colJobRole.setCellValueFactory(new PropertyValueFactory<>("jobRole"));
-        colSecCode.setCellValueFactory(new PropertyValueFactory<>("secCode"));
+        colSecCode.setCellValueFactory(new PropertyValueFactory<>("sectionCode"));
 
         //Search bar
         txtSearch.textProperty()
@@ -60,13 +66,13 @@ public class EmployeeFormController implements Initializable {
     }
 
     private void loadAllEmployees(String text) {
-        ObservableList<Employee> empList = FXCollections.observableArrayList();
+        ObservableList<EmployeeDTO> empList = FXCollections.observableArrayList();
 
         try{
-            ArrayList<Employee> employeesData = EmployeeModel.getEmployeeData();
-            for (Employee employee:employeesData){
-                if(employee.getId().contains(text) || employee.getName().contains(text)){
-                    Employee e = new Employee(employee.getId(), employee.getName(), employee.getAddress(), employee.getSalary(), employee.getJobRole(), employee.getSecCode());
+            ArrayList<EmployeeDTO> employeesData = EmployeeModel.getEmployeeData();
+            for (EmployeeDTO employee:employeesData){
+                if(employee.getEmployeeID().contains(text) || employee.getName().contains(text)){
+                    EmployeeDTO e = new EmployeeDTO(employee.getEmployeeID(), employee.getName(), employee.getAddress(), employee.getSalary(), employee.getJobRole(), employee.getSectionCode());
                     empList.add(e);
                 }
             }
@@ -109,9 +115,9 @@ public class EmployeeFormController implements Initializable {
         String jobRole = txtJobRole.getText();
         String secCode = txtSectionCode.getText();
 
-        Employee employee = new Employee(eId,name,address,salary, jobRole, secCode);
+        EmployeeDTO employeeDTO = new EmployeeDTO(eId,name,address,salary, jobRole, secCode);
         try{
-            boolean isAdded = EmployeeModel.save(employee);
+            boolean isAdded = employeeBO.addEmployee(employeeDTO);
             if (isAdded){
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee Added Successfully!").show();
             }else {
@@ -121,8 +127,8 @@ public class EmployeeFormController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<Employee> employees = tblEmployee.getItems();
-        employees.add(employee);
+        ObservableList<EmployeeDTO> employees = tblEmployee.getItems();
+        employees.add(employeeDTO);
         tblEmployee.setItems(employees);
     }
 
@@ -135,15 +141,15 @@ public class EmployeeFormController implements Initializable {
         String secCode = txtSectionCode.getText();
 
         try{
-            Employee employee = new Employee(eId,name,address,salary, jobRole, secCode);
-            boolean isUpdated = EmployeeModel.update(employee, eId);
+            //Employee employee = new Employee(eId,name,address,salary, jobRole, secCode);
+            boolean isUpdated = employeeBO.updateEmployee(new EmployeeDTO(txtEmployeeID.getText(), txtName.getText(), txtAddress.getText(), txtSalary.getText(), txtJobRole.getText(), txtSectionCode.getText()));
             if (isUpdated){
-                colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("id"));
+                colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
                 colName.setCellValueFactory(new PropertyValueFactory<>("name"));
                 colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
                 colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
                 colJobRole.setCellValueFactory(new PropertyValueFactory<>("jobRole"));
-                colSecCode.setCellValueFactory(new PropertyValueFactory<>("secCode"));
+                colSecCode.setCellValueFactory(new PropertyValueFactory<>("sectionCode"));
 
                 //Search bar
                 txtSearch.textProperty()
@@ -158,16 +164,16 @@ public class EmployeeFormController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<Employee> currentTableData = tblEmployee.getItems();
+        ObservableList<EmployeeDTO> currentTableData = tblEmployee.getItems();
         String currentEmployeeId = txtEmployeeID.getText();
 
-        for(Employee employee : currentTableData){
-            if(employee.getId() == currentEmployeeId){
+        for(EmployeeDTO employee : currentTableData){
+            if(employee.getEmployeeID() == currentEmployeeId){
                 employee.setName(txtName.getText());
                 employee.setAddress(txtAddress.getText());
                 employee.setSalary(Double.parseDouble(txtSalary.getText()));
                 employee.setJobRole(txtJobRole.getText());
-                employee.setSecCode(txtSectionCode.getText());
+                employee.setSectionCode(txtSectionCode.getText());
 
                 tblEmployee.setItems(currentTableData);
                 tblEmployee.refresh();
@@ -194,8 +200,8 @@ public class EmployeeFormController implements Initializable {
         String secCode = txtSectionCode.getText();
 
         try{
-            Employee employee = new Employee(eId,name,address,salary, jobRole, secCode);
-            boolean isDeleted = EmployeeModel.delete(employee, eId);
+            //Employee employee = new Employee(eId,name,address,salary, jobRole, secCode);
+            boolean isDeleted = employeeBO.deleteEmployee(eId);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee Deleted Successfully!").show();
             }else {
@@ -212,7 +218,7 @@ public class EmployeeFormController implements Initializable {
     public void txtEmployeeIdOnAction(ActionEvent actionEvent) {
         String eId = txtEmployeeID.getText();
         try {
-            Employee employee = EmployeeModel.search(eId);
+            EmployeeDTO employee = employeeBO.searchEmployee(eId);
             if (employee != null){
                 fillData(employee);
             }
@@ -221,37 +227,35 @@ public class EmployeeFormController implements Initializable {
         }
     }
 
-    private void fillData(Employee employee) {
-        txtEmployeeID.setText(employee.getId());
+    private void fillData(EmployeeDTO employee) {
+        txtEmployeeID.setText(employee.getEmployeeID());
         txtName.setText(employee.getName());
         txtAddress.setText(employee.getAddress());
         txtSalary.setText(String.valueOf(employee.getSalary()));
         txtJobRole.setText(employee.getJobRole());
-        txtSectionCode.setText(employee.getSecCode());
+        txtSectionCode.setText(employee.getSectionCode());
     }
 
     public void rowClicked(MouseEvent mouseEvent) {
-        Employee clickedEmployee = (Employee) tblEmployee.getSelectionModel().getSelectedItem();
-        txtEmployeeID.setText(String.valueOf(clickedEmployee.getId()));
+        EmployeeDTO clickedEmployee = (EmployeeDTO) tblEmployee.getSelectionModel().getSelectedItem();
+        txtEmployeeID.setText(String.valueOf(clickedEmployee.getEmployeeID()));
         txtName.setText(String.valueOf(clickedEmployee.getName()));
         txtAddress.setText(String.valueOf(clickedEmployee.getAddress()));
         txtSalary.setText(String.valueOf(clickedEmployee.getSalary()));
         txtJobRole.setText(String.valueOf(clickedEmployee.getJobRole()));
-        txtSectionCode.setText(String.valueOf(clickedEmployee.getSecCode()));
+        txtSectionCode.setText(String.valueOf(clickedEmployee.getSectionCode()));
     }
 
     public void txtSearchOnAction(ActionEvent actionEvent) {
         String eId = txtEmployeeID.getText();
-//        String name = txtName.getText();
-//        String address = txtAddress.getText();
-//        double salary = Double.parseDouble(txtSalary.getText());
-//        String jobRole = txtJobRole.getText();
-//        String secCode = txtSectionCode.getText();
 
         try {
-            Employee employee = EmployeeModel.search(eId);
-            if (employee != null){
-                fillData(employee);
+            EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+            EmployeeDTO search = employeeDAO.search(eId);
+            if (search != null){
+                fillData(search);
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Empty Result..!").show();
             }
         }catch (SQLException | ClassNotFoundException e){
             throw new RuntimeException(e);
