@@ -133,7 +133,7 @@ public class DeliveryFormController implements Initializable {
             //Delivery delivery = new Delivery(Dcode,name,payment);
 
             //boolean isUpdated = DeliveryModel.update(delivery, Dcode);
-            boolean isUpdated = dCompanyBO.updateDCompany(new DCompanyDTO(txtDeliveryCode.getText(), txtName.getText(), txtPayment.getText()));
+            boolean isUpdated = dCompanyBO.updateDCompany(new DCompanyDTO(txtDeliveryCode.getText(), txtName.getText(), Double.parseDouble(txtPayment.getText())));
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION, "Delivery Updated Successfully!").show();
                 colDeliveryCode.setCellValueFactory(new PropertyValueFactory<>("deliveryCode"));

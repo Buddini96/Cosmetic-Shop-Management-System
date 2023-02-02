@@ -142,8 +142,9 @@ public class EmployeeFormController implements Initializable {
 
         try{
             //Employee employee = new Employee(eId,name,address,salary, jobRole, secCode);
-            boolean isUpdated = employeeBO.updateEmployee(new EmployeeDTO(txtEmployeeID.getText(), txtName.getText(), txtAddress.getText(), txtSalary.getText(), txtJobRole.getText(), txtSectionCode.getText()));
+            boolean isUpdated = employeeBO.updateEmployee(new EmployeeDTO(txtEmployeeID.getText(), txtName.getText(), txtAddress.getText(), Double.parseDouble(txtSalary.getText()), txtJobRole.getText(), txtSectionCode.getText()));
             if (isUpdated){
+                new Alert(Alert.AlertType.CONFIRMATION, "Employee Updated Successfully!").show();
                 colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeID"));
                 colName.setCellValueFactory(new PropertyValueFactory<>("name"));
                 colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));

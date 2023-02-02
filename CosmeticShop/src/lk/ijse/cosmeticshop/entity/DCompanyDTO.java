@@ -13,8 +13,7 @@ public class DCompanyDTO {
     double payment;
 
 
-    public DCompanyDTO(String text, String txtNameText, String txtPaymentText) {
-    }
+   
 
     public DCompanyDTO(String deliveryCode, String name, double payment) {
         this.deliveryCode = deliveryCode;

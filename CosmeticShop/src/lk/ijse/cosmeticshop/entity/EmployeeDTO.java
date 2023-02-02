@@ -14,8 +14,8 @@ public class EmployeeDTO {
     String jobRole;
     String sectionCode;
 
-    public EmployeeDTO(String text, String txtNameText, String txtAddressText, String txtSalaryText, String txtJobRoleText, String txtSectionCodeText) {
-    }
+//    public EmployeeDTO(String text, String txtNameText, String txtAddressText, String txtSalaryText, String txtJobRoleText, String txtSectionCodeText) {
+//    }
 
     public EmployeeDTO(String employeeID, String name, String address, double salary, String jobRole, String sectionCode) {
         this.employeeID = employeeID;
