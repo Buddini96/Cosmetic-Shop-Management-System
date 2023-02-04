@@ -55,7 +55,7 @@ public class OrderFormController implements Initializable {
         colCustomerId.setCellValueFactory(new PropertyValueFactory<>("customerID"));
 
 
-        //Search bar
+        //Search
         txtSearch.textProperty()
                 .addListener((observable, oldValue, newValue) ->{
                     loadAllOrders(newValue);
@@ -80,29 +80,6 @@ public class OrderFormController implements Initializable {
         tblOrders.setItems(orderList);
     }
 
-    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.CUSTOMER, pane);
-    }
-
-    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PRODUCT_ADMIN, pane);
-    }
-
-    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.ORDER, pane);
-    }
-
-    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PLACE_ORDER, pane);
-    }
-
-    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.HOME, pane);
-    }
-
-    public void btnDelveryOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.DELIVERY, pane);
-    }
 
 
     public void btnAddOnAction(ActionEvent actionEvent) {
@@ -233,4 +210,29 @@ public class OrderFormController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.CUSTOMER, pane);
+    }
+
+    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PRODUCT_ADMIN, pane);
+    }
+
+    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.ORDER, pane);
+    }
+
+    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PLACE_ORDER, pane);
+    }
+
+    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.HOME, pane);
+    }
+
+    public void btnDelveryOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.DELIVERY, pane);
+    }
+
 }
