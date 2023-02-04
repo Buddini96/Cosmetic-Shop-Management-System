@@ -82,31 +82,6 @@ public class CustomerFormController implements Initializable {
 
         tblCustomer.setItems(cusList);
     }
-
-    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.CUSTOMER, pane);
-    }
-
-    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PRODUCT_ADMIN, pane);
-    }
-
-    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.ORDER, pane);
-    }
-
-    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PLACE_ORDER, pane);
-    }
-
-    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.HOME, pane);
-    }
-
-    public void btnDelveryOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.DELIVERY, pane);
-    }
-
     //Form
 
     public void btnAddOnAction(ActionEvent actionEvent) {
@@ -123,7 +98,6 @@ public class CustomerFormController implements Initializable {
             new Alert(Alert.AlertType.WARNING, "Invalid Customer Id!").show();
         }
 
-        //Customer customer = new Customer(id,name,address,contact);
         CustomerDTO customerDTO=new CustomerDTO(id,name,address,contact);
             try{
 
@@ -144,13 +118,8 @@ public class CustomerFormController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String id = txtCustomerId.getText();
-        String name = txtName.getText();
-        String address = txtAddress.getText();
-        int contact = Integer.parseInt(txtContact.getText());
 
         try{
-            //Customer customer = new Customer(id,name,address,contact);
             boolean isUpdated = customerBO.update(new CustomerDTO(txtCustomerId.getText(),txtName.getText(),txtAddress.getText(),txtContact.getText()));
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Updated Successfully!").show();
@@ -199,12 +168,8 @@ public class CustomerFormController implements Initializable {
 
     public void btnDeleteOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String id = txtCustomerId.getText();
-//        String name = txtName.getText();
-//        String address = txtAddress.getText();
-//        int contact = Integer.parseInt(txtContact.getText());
-
         try{
-            //Customer customer = new Customer(id,name,address,contact);
+
             boolean isDeleted = customerBO.delete(id);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Deleted Successfully!").show();
@@ -265,6 +230,31 @@ public class CustomerFormController implements Initializable {
         txtContact.setText(String.valueOf(clickedCustomer.getContact()));
 
     }
+
+    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.CUSTOMER, pane);
+    }
+
+    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PRODUCT_ADMIN, pane);
+    }
+
+    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.ORDER, pane);
+    }
+
+    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PLACE_ORDER, pane);
+    }
+
+    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.HOME, pane);
+    }
+
+    public void btnDelveryOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.DELIVERY, pane);
+    }
+
 
 }
 

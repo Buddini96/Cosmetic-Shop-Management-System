@@ -127,10 +127,6 @@ public class ProductFormAdminController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String code = txtProductCode.getText();
-        String description = txtDescription.getText();
-        double price = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
 
         try{
             //product

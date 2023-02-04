@@ -76,29 +76,6 @@ public class ProductFormController implements Initializable {
         tblProduct.setItems(proList);
     }
 
-    public void btnEmployeenAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.EMPLOYEE, pane);
-    }
-
-    public void btnSupplierOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.SUPPLIER, pane);
-    }
-
-    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PRODUCT, pane);
-    }
-
-    public void btnIncomeReportOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.INCOME_REPORT, pane);
-    }
-
-    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.HOME, pane);
-    }
-
-    public void OwnerDashboardOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.OWNER_DASHBOARD, pane);
-    }
 
     //form
 
@@ -234,4 +211,29 @@ public class ProductFormController implements Initializable {
         txtQtyOnHand.setText(String.valueOf(product.getQtyOnHand()));
 
     }
+
+    public void btnEmployeenAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.EMPLOYEE, pane);
+    }
+
+    public void btnSupplierOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.SUPPLIER, pane);
+    }
+
+    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PRODUCT, pane);
+    }
+
+    public void btnIncomeReportOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.INCOME_REPORT, pane);
+    }
+
+    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.HOME, pane);
+    }
+
+    public void OwnerDashboardOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.OWNER_DASHBOARD, pane);
+    }
+
 }
