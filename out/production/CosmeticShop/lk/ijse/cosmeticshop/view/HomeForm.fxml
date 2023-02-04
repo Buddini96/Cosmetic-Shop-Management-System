@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="1082.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cosmeticshop.controller.HomeFormController">
+   <children>
+      <ImageView fitHeight="1086.0" fitWidth="1920.0">
+         <image>
+            <Image url="@../assests/images/Home.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="94.0" layoutY="-2.0" prefHeight="70.0" prefWidth="1336.0">
+         <children>
+            <JFXButton alignment="BASELINE_LEFT" layoutX="150.0" onAction="#btnHomeOnAction" prefHeight="71.0" prefWidth="249.0" text="HOME">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXButton>
+            <JFXButton alignment="BASELINE_LEFT" layoutX="400.0" onAction="#btnAboutOnAction" prefHeight="71.0" prefWidth="249.0" text="ABOUT">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXButton>
+            <JFXButton alignment="BASELINE_LEFT" layoutX="650.0" onAction="#btnContactOnAction" prefHeight="71.0" prefWidth="249.0" text="CONTACT">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXButton>
+            <JFXButton alignment="BASELINE_LEFT" layoutX="900.0" onAction="#btnExitOnAction" prefHeight="71.0" prefWidth="249.0" text="EXIT">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </JFXButton>
+         </children>
+      </Pane>
+      <Pane layoutX="244.0" layoutY="146.0" prefHeight="612.0" prefWidth="560.0">
+         <children>
+            <Label layoutY="74.0" text="GLOWISH BEAUTY COSMETICS" textFill="#d2227f">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="4.0" layoutY="161.0" prefHeight="70.0" prefWidth="493.0" text="WELCOME TO GLOWISH BEAUTY COSMETICS ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton buttonType="RAISED" layoutX="-4.0" layoutY="321.0" onAction="#btnStartOnAcction" prefHeight="64.0" prefWidth="255.0" style="-fx-background-radius: 40; -fx-background-color: #280542;" text="Get Started" textFill="#edebeb">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </JFXButton>
+            <Label layoutY="216.0" prefHeight="61.0" prefWidth="540.0" text=" OFFICIAL SYSTEM.">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="130.0" fitWidth="138.0" layoutX="-3.0" layoutY="-56.0">
+               <image>
+                  <Image url="@../../../../../../../../../k/1669974291100.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ImageView fitHeight="119.0" fitWidth="153.0" layoutX="33.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

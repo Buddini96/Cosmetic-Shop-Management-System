@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cosmeticshop.controller.IncomeReportFormController">
+   <children>
+      <ImageView fitHeight="1343.0" fitWidth="1528.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0">
+         <image>
+            <Image url="@../assests/images/bg2.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="1529.0" fitWidth="1528.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/images/bg2.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutY="-2.0" prefHeight="1082.0" prefWidth="1918.0">
+         <children>
+            <Pane layoutX="380.0" layoutY="-2.0" prefHeight="1086.0" prefWidth="1542.0" style="-fx-background-color: white; -fx-background-radius: 70;">
+               <children>
+                  <Label layoutX="55.0" layoutY="94.0" text="Income Report">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="129.0" layoutY="244.0" prefHeight="382.0" prefWidth="264.0" style="-fx-background-radius: 40; -fx-background-color: #d6add2;">
+                     <children>
+                        <Label layoutX="43.0" layoutY="41.0" prefHeight="27.0" prefWidth="198.0" style="-fx-background-radius: 50;" text="Customer Report" textFill="#322d32">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="137.0" fitWidth="198.0" layoutX="68.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assests/icons/a2.png" />
+                           </image>
+                        </ImageView>
+                        <JFXButton buttonType="RAISED" layoutX="76.0" layoutY="293.0" onAction="#btnPrintCustomerOnAction" prefHeight="49.0" prefWidth="118.0" style="-fx-background-color: #0be262;" text="Print" textFill="#2f3532">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="471.0" layoutY="244.0" prefHeight="382.0" prefWidth="264.0" style="-fx-background-radius: 40; -fx-background-color: #d6add2;">
+                     <children>
+                        <Label layoutX="43.0" layoutY="41.0" prefHeight="27.0" prefWidth="198.0" style="-fx-background-radius: 50;" text="Employee Report" textFill="#322d32">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="116.0" fitWidth="131.0" layoutX="68.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assests/icons/addEmp.png" />
+                           </image>
+                        </ImageView>
+                        <JFXButton buttonType="RAISED" layoutX="76.0" layoutY="293.0" onAction="#btnPrintEmployeeOnAction" prefHeight="49.0" prefWidth="118.0" style="-fx-background-color: #0be262;" text="Print" textFill="#2f3532">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="816.0" layoutY="244.0" prefHeight="382.0" prefWidth="264.0" style="-fx-background-radius: 40; -fx-background-color: #d6add2;">
+                     <children>
+                        <Label layoutX="43.0" layoutY="41.0" prefHeight="27.0" prefWidth="198.0" style="-fx-background-radius: 50;" text="Product Report" textFill="#322d32">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="137.0" fitWidth="198.0" layoutX="68.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assests/icons/a3.png" />
+                           </image>
+                        </ImageView>
+                        <JFXButton buttonType="RAISED" layoutX="76.0" layoutY="293.0" onAction="#btnPrintProductOnAction" prefHeight="49.0" prefWidth="118.0" style="-fx-background-color: #0be262;" text="Print" textFill="#2f3532">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </Pane>
+               </children></Pane>
+            <ImageView fitHeight="104.0" fitWidth="112.0" layoutX="125.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a1.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="13.0" layoutY="250.0" onAction="#btnEmployeenAction" prefHeight="78.0" prefWidth="365.0" text="Manage Employees">
+               <font>
+                  <Font size="23.0" />
+               </font>
+               <rotationAxis>
+                  <Point3D x="10.0" z="1.0" />
+               </rotationAxis>
+            </JFXButton>
+            <ImageView fitHeight="66.0" fitWidth="71.0" layoutX="14.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/addEmp.png" />
+               </image>
+               <rotationAxis>
+                  <Point3D x="10.0" z="1.0" />
+               </rotationAxis>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="12.0" layoutY="341.0" onAction="#btnSupplierOnAction" prefHeight="78.0" prefWidth="365.0" text="Manage Suppliers">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="5.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/o2.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="8.0" layoutY="440.0" onAction="#btnProductsOnAction" prefHeight="78.0" prefWidth="365.0" text="Manage Products">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="8.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a3.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="11.0" layoutY="537.0" onAction="#btnIncomeReportOnAction" prefHeight="78.0" prefWidth="365.0" text="Income Report">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="11.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/o1.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="5.0" layoutY="871.0" onAction="#btnLogOutOnAction" prefHeight="78.0" prefWidth="365.0" text="Log Out">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="32.0" layoutY="888.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a7.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="31.0" layoutY="142.0" onAction="#OwnerDashboardOnAction" prefHeight="69.0" prefWidth="291.0" text="Owner Dashboard">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

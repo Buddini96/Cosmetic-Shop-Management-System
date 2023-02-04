@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cosmeticshop.controller.EmployeeFormController">
+   <children>
+      <ImageView fitHeight="1094.0" fitWidth="1574.0" AnchorPane.rightAnchor="0.0">
+         <image>
+            <Image url="@../assests/images/bg2.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="1094.0" fitWidth="1553.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/images/bg2.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutY="-2.0" prefHeight="1096.0" prefWidth="1918.0">
+         <children>
+            <Pane layoutX="380.0" prefHeight="1098.0" prefWidth="1538.0" style="-fx-background-color: white; -fx-background-radius: 70;">
+               <children>
+                  <Label layoutX="55.0" layoutY="94.0" text="Manage Employees">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="37.0" layoutY="175.0" prefHeight="760.0" prefWidth="608.0">
+                     <children>
+                        <VBox layoutX="22.0" layoutY="112.0" prefHeight="487.0" prefWidth="180.0">
+                           <children>
+                              <Label prefHeight="53.0" prefWidth="246.0" text="Employee Id">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="53.0" prefWidth="246.0" text="Name">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="53.0" prefWidth="246.0" text="Address">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="53.0" prefWidth="246.0" text="Salary">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="53.0" prefWidth="246.0" text="Job Role">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label prefHeight="53.0" prefWidth="246.0" text="Section Code">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="220.0" layoutY="114.0" prefHeight="487.0" prefWidth="343.0">
+                           <children>
+                              <TextField fx:id="txtEmployeeID" onAction="#txtEmployeeIdOnAction" prefHeight="43.0" prefWidth="346.0">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtName" prefHeight="43.0" prefWidth="346.0">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtAddress" prefHeight="43.0" prefWidth="346.0">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtSalary" prefHeight="43.0" prefWidth="346.0">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtJobRole" prefHeight="43.0" prefWidth="346.0">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <TextField fx:id="txtSectionCode" prefHeight="43.0" prefWidth="346.0">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </TextField>
+                            </children>
+                        </VBox>
+                        <Button layoutX="23.0" layoutY="39.0" mnemonicParsing="false" onAction="#btnAddOnAction" text="+ New Employee">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="242.0" layoutY="38.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" text="Edit Employee">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="24.0" layoutY="660.0" mnemonicParsing="false" onAction="#btnClearOnAction" prefHeight="42.0" prefWidth="185.0" text="Clear">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="243.0" layoutY="659.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="42.0" prefWidth="186.0" text="Delete">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Separator layoutX="672.0" layoutY="212.0" orientation="VERTICAL" prefHeight="667.0" prefWidth="6.0" />
+                  <TableView fx:id="tblEmployee" layoutX="714.0" layoutY="326.0" onMouseClicked="#rowClicked" prefHeight="435.0" prefWidth="781.0">
+                    <columns>
+                      <TableColumn fx:id="colEmployeeId" prefWidth="144.0" text="Employee Id" />
+                        <TableColumn fx:id="colName" prefWidth="115.0" text="Name" />
+                        <TableColumn fx:id="colAddress" prefWidth="146.333251953125" text="Address" />
+                        <TableColumn fx:id="colSalary" prefWidth="136.6666259765625" text="Salary" />
+                        <TableColumn fx:id="colJobRole" prefWidth="115.3333740234375" text="Job Role" />
+                        <TableColumn fx:id="colSecCode" prefWidth="122.3333740234375" text="Section Code" />
+                    </columns>
+                  </TableView>
+                  <JFXTextField fx:id="txtSearch" layoutX="764.0" layoutY="220.0" onAction="#txtSearchOnAction" prefHeight="53.0" prefWidth="416.0" promptText="Search Employee">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </JFXTextField>
+                  <ImageView fitHeight="53.0" fitWidth="62.0" layoutX="690.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assests/icons/search.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="13.0" layoutY="250.0" onAction="#btnEmployeenAction" prefHeight="78.0" prefWidth="365.0" text="Manage Employees">
+               <font>
+                  <Font size="23.0" />
+               </font>
+               <rotationAxis>
+                  <Point3D x="10.0" z="1.0" />
+               </rotationAxis>
+            </JFXButton>
+            <ImageView fitHeight="66.0" fitWidth="71.0" layoutX="14.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/addEmp.png" />
+               </image>
+               <rotationAxis>
+                  <Point3D x="10.0" z="1.0" />
+               </rotationAxis>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="12.0" layoutY="341.0" onAction="#btnSupplierOnAction" prefHeight="78.0" prefWidth="365.0" text="Manage Suppliers">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="5.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/o2.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="8.0" layoutY="440.0" onAction="#btnProductsOnAction" prefHeight="78.0" prefWidth="365.0" text="Manage Products">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="8.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a3.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="11.0" layoutY="537.0" onAction="#btnIncomeReportOnAction" prefHeight="78.0" prefWidth="365.0" text="Income Report">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="11.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/o1.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="10.0" layoutY="893.0" onAction="#btnLogOutOnAction" prefHeight="78.0" prefWidth="365.0" text="Log Out">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="19.0" layoutY="907.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a7.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="104.0" fitWidth="112.0" layoutX="119.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a1.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="31.0" layoutY="142.0" onAction="#OwnerDashboardOnAction" prefHeight="69.0" prefWidth="291.0" text="Owner Dashboard">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

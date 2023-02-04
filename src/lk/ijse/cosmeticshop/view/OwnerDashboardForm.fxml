@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.cosmeticshop.controller.OwnerDashboardFormController">
+   <children>
+      <ImageView fitHeight="1094.0" fitWidth="1574.0" AnchorPane.rightAnchor="0.0">
+         <image>
+            <Image url="@../assests/images/bg2.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="1094.0" fitWidth="1553.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/images/bg2.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutY="-2.0" prefHeight="1096.0" prefWidth="1918.0">
+         <children>
+            <Pane layoutX="380.0" prefHeight="1098.0" prefWidth="1538.0" style="-fx-background-color: white; -fx-background-radius: 70;">
+               <children>
+                  <Label layoutX="55.0" layoutY="94.0" text="Owner Dashboard">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Pane layoutX="37.0" layoutY="175.0" prefHeight="744.0" prefWidth="1480.0">
+                     <children>
+                        <ImageView fitHeight="623.0" fitWidth="592.0" layoutX="-10.0" layoutY="1.0">
+                           <image>
+                              <Image url="@../assests/images/img1.jpg" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="534.0" fitWidth="506.0" layoutX="572.0" layoutY="91.0">
+                           <image>
+                              <Image url="@../assests/images/img3.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="482.0" fitWidth="414.0" layoutX="1060.0" layoutY="124.0">
+                           <image>
+                              <Image url="@../assests/images/img5.jpg" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children></Pane>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="13.0" layoutY="250.0" onAction="#btnEmployeenAction" prefHeight="78.0" prefWidth="365.0" text="Manage Employees">
+               <font>
+                  <Font size="23.0" />
+               </font>
+               <rotationAxis>
+                  <Point3D x="10.0" z="1.0" />
+               </rotationAxis>
+            </JFXButton>
+            <ImageView fitHeight="66.0" fitWidth="71.0" layoutX="14.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/addEmp.png" />
+               </image>
+               <rotationAxis>
+                  <Point3D x="10.0" z="1.0" />
+               </rotationAxis>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="12.0" layoutY="341.0" onAction="#btnSupplierOnAction" prefHeight="78.0" prefWidth="365.0" text="Manage Suppliers">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="5.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/o2.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="8.0" layoutY="440.0" onAction="#btnProductsOnAction" prefHeight="78.0" prefWidth="365.0" text="Manage Products">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="8.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a3.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="11.0" layoutY="537.0" onAction="#btnIncomeReportOnAction" prefHeight="78.0" prefWidth="365.0" text="Income Report">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="71.0" fitWidth="78.0" layoutX="11.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/o1.png" />
+               </image>
+            </ImageView>
+            <JFXButton alignment="BASELINE_CENTER" buttonType="RAISED" layoutX="10.0" layoutY="893.0" onAction="#btnLogOutOnAction" prefHeight="78.0" prefWidth="365.0" text="Log Out">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="19.0" layoutY="907.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a7.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="104.0" fitWidth="112.0" layoutX="119.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/icons/a1.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="31.0" layoutY="142.0" onAction="#OwnerDashboardOnAction" prefHeight="69.0" prefWidth="291.0" text="Owner Dashboard">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

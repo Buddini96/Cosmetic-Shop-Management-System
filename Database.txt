@@ -1,0 +1,146 @@
+DROP DATABASE CosmeticShop;
+CREATE DATABASE IF NOT EXISTS CosmeticShop;
+SHOW DATABASES ;
+USE CosmeticShop;
+CREATE TABLE IF NOT EXISTS Customer (
+	customerID VARCHAR(10) NOT NULL,
+	Name VARCHAR(50),
+	Address VARCHAR(45),
+	contact VARCHAR(10),
+	CONSTRAINT PRIMARY KEY (customerID)	
+);
+DESC Customer;
+
+CREATE TABLE IF NOT EXISTS DeliveryCompany(
+	deliveryCode VARCHAR(10) NOT NULL,
+	Name VARCHAR(50),
+	Payment DECIMAL(10,2),
+	CONSTRAINT PRIMARY KEY (deliveryCode)	
+);
+DESC DeliveryCompany;
+
+
+CREATE TABLE Orders(
+	orderID VARCHAR(10),
+	orderDate DATE,
+	customerID VARCHAR(10) NOT NULL,
+	CONSTRAINT PRIMARY KEY (orderID),
+	CONSTRAINT FOREIGN KEY (customerID) REFERENCES Customer(customerID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+DESC Orders;
+
+
+
+CREATE TABLE IF NOT EXISTS Product(
+	productCode VARCHAR(10) NOT NULL,
+	Description VARCHAR(50),
+	Unitprice DECIMAL(10,2),
+	qtyOnHand INT,
+	CONSTRAINT PRIMARY KEY (productCode)
+);
+DESC Product;
+
+CREATE TABLE OrderDetail(
+	orderID VARCHAR(10) NOT NULL,
+	productCode VARCHAR(10) NOT NULL,
+	Qty INT(11),
+	sellingPrice DECIMAL(10,2),
+	CONSTRAINT PRIMARY KEY (orderID,productCode),
+	CONSTRAINT FOREIGN KEY (orderID) REFERENCES Orders(orderID) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT FOREIGN KEY (productCode) REFERENCES Product(productCode) ON DELETE CASCADE ON UPDATE CASCADE
+);
+DESC OrderDetail;
+
+CREATE TABLE IF NOT EXISTS User(
+	jobRole VARCHAR(50) NOT NULL,
+	Username VARCHAR(50),
+	Password VARCHAR(10),
+	CONSTRAINT PRIMARY KEY (jobRole)
+);
+DESC User;	
+
+CREATE TABLE IF NOT EXISTS Section(
+	sectionCode VARCHAR(10) NOT NULL,
+	sectionName VARCHAR(50),	
+	CONSTRAINT PRIMARY KEY (sectionCode)
+);
+DESC Section;
+
+
+CREATE TABLE IF NOT EXISTS Employee(
+	employeeID VARCHAR(255),
+	Name VARCHAR(50),
+	Address VARCHAR(45),
+	Salary DECIMAL(8,2),
+	jobRole VARCHAR(50) NOT NULL,
+	sectionCode VARCHAR(255) NOT NULL,
+	CONSTRAINT PRIMARY KEY (employeeID),
+	CONSTRAINT FOREIGN KEY (jobRole) REFERENCES User(jobRole) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT FOREIGN KEY (sectionCode) REFERENCES Section(sectionCode) ON DELETE CASCADE ON UPDATE CASCADE	
+);
+DESC Employee;
+
+
+
+CREATE TABLE ProductDetail(
+	productCode VARCHAR(10) NOT NULL,
+	sectionCode VARCHAR(10) NOT NULL,
+	Qty INT(11),
+	CONSTRAINT PRIMARY KEY (productCode,sectionCode),
+	CONSTRAINT FOREIGN KEY (productCode) REFERENCES Product(productCode) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT FOREIGN KEY (sectionCode) REFERENCES Section(sectionCode) ON DELETE CASCADE ON UPDATE CASCADE
+);
+DESC ProductDetail;
+
+CREATE TABLE IF NOT EXISTS Supplier(
+	supplierID VARCHAR(10) NOT NULL,
+	Name VARCHAR(50),
+	Description VARCHAR(50),
+	CONSTRAINT PRIMARY KEY (supplierID)
+);
+DESC Supplier;
+
+CREATE TABLE SupplierDetail(
+	supplierID VARCHAR(10) NOT NULL,
+	productCode VARCHAR(10) NOT NULL,
+	Qty INT(11),
+	sellingPrice DECIMAL(10,2),
+	CONSTRAINT PRIMARY KEY (supplierID,productCode),
+	CONSTRAINT FOREIGN KEY (supplierID) REFERENCES Supplier(supplierID) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT FOREIGN KEY (productCode) REFERENCES Product(productCode) ON DELETE CASCADE ON UPDATE CASCADE
+);
+DESC SupplierDetail;
+
+insert into User Value('Accountant','Kamal','1234');
+insert into User value ('Manager','Nimal','4321');
+
+insert into Section Value('S001','Maekup');
+insert into Section value ('S002','Skin');
+
+insert into deliverycompany Value('D001','Daraz', '8500');
+insert into deliverycompany value ('D002','Kapruka', '900');
+
+insert into Customer Value('C001','Kamal', 'Galle', '075631156');
+insert into Customer value ('C002','Namal', 'Galle', '075531156');
+
+insert into Orders Value('O001','2022-09-08', 'C001');
+insert into Orders value ('O002','2022-09-10', 'C002');
+
+insert into Orderdetail Value('O001','P001', '5', '4000');
+insert into Orderdetail value ('O001','P002', '6', '560');
+
+insert into Product Value('P001','Shampoo 80ml', '800', '1000');
+insert into Product value ('P002','Conditioner 80ml', '720', '2000');
+
+
+
+
+
+
+
+
+
+
+
+
