@@ -58,7 +58,7 @@ public class CustomerFormController implements Initializable {
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
 
-        //Search bar
+        //Search bar - kkkk
         txtSearch.textProperty()
                 .addListener((observable, oldValue, newValue) ->{
                     loadAllCustomers(newValue);
