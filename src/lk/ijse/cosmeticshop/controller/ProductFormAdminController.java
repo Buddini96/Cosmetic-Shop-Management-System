@@ -133,7 +133,8 @@ public class ProductFormAdminController implements Initializable {
         int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
 
         try{
-            //Product product = new Product(code,description,price,qtyOnHand);
+            //product
+            System.out.println("product");
             boolean isUpdated = productBO.updateProduct(new ProductDTO(txtProductCode.getText(), txtDescription.getText(), String.valueOf(Double.parseDouble(txtUnitPrice.getText())), txtQtyOnHand.getText()));
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION, "Product Updated Successfully!").show();
