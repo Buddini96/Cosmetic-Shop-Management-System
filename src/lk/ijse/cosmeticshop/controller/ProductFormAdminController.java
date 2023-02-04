@@ -142,7 +142,7 @@ public class ProductFormAdminController implements Initializable {
                 colPrice.setCellValueFactory(new PropertyValueFactory<>("Unitprice"));
                 colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
 
-                //SEARCH BAR hjjkkll
+                //search bar
                 txtSearch.textProperty()
                         .addListener((observable, oldValue, newValue) ->{
                             loadAllProducts(newValue);
