@@ -102,10 +102,6 @@ public class SupplierFormController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String supId = txtSupplierId.getText();
-        String name = txtName.getText();
-        String description = txtDescription.getText();
-
         try{
             boolean isUpdated = supplierBO.updateSupplier(new SupplierDTO(txtSupplierId.getText(), txtName.getText(), txtDescription.getText()));
             if (isUpdated){

@@ -76,29 +76,6 @@ public class DeliveryFormController implements Initializable {
         tblDelivery.setItems(delList);
     }
 
-    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.CUSTOMER, pane);
-    }
-
-    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PRODUCT_ADMIN, pane);
-    }
-
-    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.ORDER, pane);
-    }
-
-    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PLACE_ORDER, pane);
-    }
-
-    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.HOME, pane);
-    }
-
-    public void btnDelveryOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.DELIVERY, pane);
-    }
 
     //form
 
@@ -125,14 +102,7 @@ public class DeliveryFormController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String Dcode = txtDeliveryCode.getText();
-        String name = txtName.getText();
-        double payment = Double.parseDouble(txtPayment.getText());
-
         try{
-            //Delivery delivery = new Delivery(Dcode,name,payment);
-
-            //boolean isUpdated = DeliveryModel.update(delivery, Dcode);
             boolean isUpdated = dCompanyBO.updateDCompany(new DCompanyDTO(txtDeliveryCode.getText(), txtName.getText(), Double.parseDouble(txtPayment.getText())));
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION, "Delivery Updated Successfully!").show();
@@ -235,4 +205,29 @@ public class DeliveryFormController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.CUSTOMER, pane);
+    }
+
+    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PRODUCT_ADMIN, pane);
+    }
+
+    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.ORDER, pane);
+    }
+
+    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PLACE_ORDER, pane);
+    }
+
+    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.HOME, pane);
+    }
+
+    public void btnDelveryOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.DELIVERY, pane);
+    }
+
 }

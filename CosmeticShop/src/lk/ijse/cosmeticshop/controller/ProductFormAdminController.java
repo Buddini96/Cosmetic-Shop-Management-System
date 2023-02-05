@@ -16,11 +16,8 @@ import lk.ijse.cosmeticshop.bo.BOFactory;
 import lk.ijse.cosmeticshop.bo.custom.ProductBO;
 import lk.ijse.cosmeticshop.dao.custom.ProductDAO;
 import lk.ijse.cosmeticshop.dao.custom.impl.ProductDAOImpl;
-import lk.ijse.cosmeticshop.entity.CustomerDTO;
 import lk.ijse.cosmeticshop.entity.ProductDTO;
-import lk.ijse.cosmeticshop.model.CustomerModel;
 import lk.ijse.cosmeticshop.model.ProductModel;
-import lk.ijse.cosmeticshop.to.Product;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
 
@@ -50,7 +47,7 @@ public class ProductFormAdminController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle){
         colCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("Unitprice"));
         colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
 
         //Search bar
@@ -130,14 +127,11 @@ public class ProductFormAdminController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String code = txtProductCode.getText();
-        String description = txtDescription.getText();
-        double price = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
 
         try{
-            //Product product = new Product(code,description,price,qtyOnHand);
-            boolean isUpdated = productBO.updateProduct(new ProductDTO(txtProductCode.getText(), txtDescription.getText(), txtUnitPrice.getText(), txtQtyOnHand.getText()));
+            //product
+            System.out.println("product");
+            boolean isUpdated = productBO.updateProduct(new ProductDTO(txtProductCode.getText(), txtDescription.getText(), String.valueOf(Double.parseDouble(txtUnitPrice.getText())), txtQtyOnHand.getText()));
             if (isUpdated){
                 new Alert(Alert.AlertType.CONFIRMATION, "Product Updated Successfully!").show();
                 colCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
@@ -145,7 +139,7 @@ public class ProductFormAdminController implements Initializable {
                 colPrice.setCellValueFactory(new PropertyValueFactory<>("Unitprice"));
                 colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
 
-                //Search bar
+                //search bar
                 txtSearch.textProperty()
                         .addListener((observable, oldValue, newValue) ->{
                             loadAllProducts(newValue);

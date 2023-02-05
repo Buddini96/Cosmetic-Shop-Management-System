@@ -12,6 +12,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.cosmeticshop.bo.BOFactory;
+import lk.ijse.cosmeticshop.bo.custom.ProductBO;
+import lk.ijse.cosmeticshop.dao.custom.ProductDAO;
+import lk.ijse.cosmeticshop.dao.custom.impl.ProductDAOImpl;
 import lk.ijse.cosmeticshop.entity.ProductDTO;
 import lk.ijse.cosmeticshop.model.ProductModel;
 import lk.ijse.cosmeticshop.to.Product;
@@ -37,12 +41,14 @@ public class ProductFormController implements Initializable {
     public TableColumn colDescription;
     public TableColumn colPrice;
 
-    ObservableList<Product> proList = FXCollections.observableArrayList();
+    ObservableList<ProductDTO> proList = FXCollections.observableArrayList();
+    ProductBO productBO= (ProductBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.PRODUCT);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("Unitprice"));
         colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
 
         //Search bar
@@ -70,6 +76,142 @@ public class ProductFormController implements Initializable {
         tblProduct.setItems(proList);
     }
 
+
+    //form
+
+    public void btnAddOnAction(ActionEvent actionEvent) {
+        String code = txtProductCode.getText();
+        String description = txtDescription.getText();
+        double price = Double.parseDouble(txtUnitPrice.getText());
+        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
+
+        //Product product = new Product(code,description,price,qtyOnHand);
+        ProductDTO productDTO = new ProductDTO(code,description,price,qtyOnHand);
+        try{
+            boolean isAdded = productBO.addProduct(productDTO);
+            if (isAdded){
+                new Alert(Alert.AlertType.CONFIRMATION, "Product Added Successfully!").show();
+            }else {
+                new Alert(Alert.AlertType.WARNING, "Product not Added!").show();
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ObservableList<ProductDTO> products = tblProduct.getItems();
+        products.add(productDTO);
+        tblProduct.setItems(products);
+
+    }
+
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+        try{
+            //Product product = new Product(code,description,price,qtyOnHand);
+            boolean isUpdated = productBO.updateProduct(new ProductDTO(txtProductCode.getText(), txtDescription.getText(), String.valueOf(Double.parseDouble(txtUnitPrice.getText())), txtQtyOnHand.getText()));
+            if (isUpdated){
+                new Alert(Alert.AlertType.CONFIRMATION, "Product Updated Successfully!").show();
+                colCode.setCellValueFactory(new PropertyValueFactory<>("productCode"));
+                colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+                colPrice.setCellValueFactory(new PropertyValueFactory<>("Unitprice"));
+                colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+
+                //Search bar
+                txtSearch.textProperty()
+                        .addListener((observable, oldValue, newValue) ->{
+                            loadAllProducts(newValue);
+                        });
+                loadAllProducts("");
+
+            }else {
+                new Alert(Alert.AlertType.WARNING, "Product not Updated!").show();
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ObservableList<ProductDTO> currentTableData = tblProduct.getItems();
+        String currentProductId = txtProductCode.getText();
+
+        for(ProductDTO product : currentTableData){
+            if(product.getProductCode() == currentProductId){
+                product.setDescription(txtDescription.getText());
+                product.setUnitprice(Double.parseDouble(txtUnitPrice.getText()));
+                product.setQtyOnHand(Integer.parseInt(txtQtyOnHand.getText()));
+
+                tblProduct.setItems(currentTableData);
+                tblProduct.refresh();
+                break;
+            }
+        }
+    }
+
+    public void btnClearOnAction(ActionEvent actionEvent) {
+        txtProductCode.setText("");
+        txtDescription.setText("");
+        txtUnitPrice.setText("");
+        txtQtyOnHand.setText("");
+    }
+
+    public void btnDeleteOnAction(ActionEvent actionEvent) {
+        String code = txtProductCode.getText();
+
+        try{
+            //Product product = new Product(code,description,price, qtyOnHand);
+            boolean isDeleted = productBO.deleteProduct(code);
+            if (isDeleted){
+                new Alert(Alert.AlertType.CONFIRMATION, "Product Deleted Successfully!").show();
+            }else {
+                new Alert(Alert.AlertType.WARNING, "Product not Deleted!").show();
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        int selectedID = tblProduct.getSelectionModel().getSelectedIndex();
+        tblProduct.getItems().remove(selectedID);
+    }
+
+    public void rowClicked(MouseEvent mouseEvent) {
+        ProductDTO clickedProduct = (ProductDTO) tblProduct.getSelectionModel().getSelectedItem();
+        txtProductCode.setText(String.valueOf(clickedProduct.getProductCode()));
+        txtDescription.setText(String.valueOf(clickedProduct.getDescription()));
+        txtUnitPrice.setText(String.valueOf(clickedProduct.getUnitprice()));
+        txtQtyOnHand.setText(String.valueOf(clickedProduct.getQtyOnHand()));
+    }
+
+    public void txtSearchOnAction(ActionEvent actionEvent) {
+        String code = txtSearch.getText();
+        try{
+            ProductDAO productDAO = new ProductDAOImpl();
+            ProductDTO search = productDAO.search(code);
+            if (search != null){
+                fillData(search);
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void txtProductCodeOnAction(ActionEvent actionEvent) {
+        String code = txtProductCode.getText();
+        try {
+            ProductDTO product = productBO.searchProduct(code);
+            if (product != null){
+                fillData(product);
+            }
+        }catch (SQLException | ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void fillData(ProductDTO product){
+        txtProductCode.setText(product.getProductCode());
+        txtDescription.setText(product.getDescription());
+        txtUnitPrice.setText(String.valueOf(product.getUnitprice()));
+        txtQtyOnHand.setText(String.valueOf(product.getQtyOnHand()));
+
+    }
+
     public void btnEmployeenAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.EMPLOYEE, pane);
     }
@@ -92,147 +234,6 @@ public class ProductFormController implements Initializable {
 
     public void OwnerDashboardOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.OWNER_DASHBOARD, pane);
-    }
-
-    //form
-
-    public void btnAddOnAction(ActionEvent actionEvent) {
-        String code = txtProductCode.getText();
-        String description = txtDescription.getText();
-        double price = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
-
-        Product product = new Product(code,description,price,qtyOnHand);
-        try{
-            boolean isAdded = ProductModel.save(product);
-            if (isAdded){
-                new Alert(Alert.AlertType.CONFIRMATION, "Product Added Successfully!").show();
-            }else {
-                new Alert(Alert.AlertType.WARNING, "Product not Added!").show();
-            }
-        }catch (SQLException | ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        ObservableList<Product> products = tblProduct.getItems();
-        products.add(product);
-        tblProduct.setItems(products);
-
-    }
-
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String code = txtProductCode.getText();
-        String description = txtDescription.getText();
-        double price = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
-
-        try{
-            Product product = new Product(code,description,price,qtyOnHand);
-            boolean isUpdated = ProductModel.update(product, code);
-            if (isUpdated){
-                new Alert(Alert.AlertType.CONFIRMATION, "Product Updated Successfully!").show();
-                colCode.setCellValueFactory(new PropertyValueFactory<>("code"));
-                colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-                colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-                colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
-
-                //Search bar
-                txtSearch.textProperty()
-                        .addListener((observable, oldValue, newValue) ->{
-                            loadAllProducts(newValue);
-                        });
-                loadAllProducts("");
-
-            }else {
-                new Alert(Alert.AlertType.WARNING, "Product not Updated!").show();
-            }
-        }catch (SQLException | ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        ObservableList<Product> currentTableData = tblProduct.getItems();
-        String currentProductId = txtProductCode.getText();
-
-        for(Product product : currentTableData){
-            if(product.getCode() == currentProductId){
-                product.setDescription(txtDescription.getText());
-                product.setPrice(Double.parseDouble(txtUnitPrice.getText()));
-                product.setQtyOnHand(Integer.parseInt(txtQtyOnHand.getText()));
-
-                tblProduct.setItems(currentTableData);
-                tblProduct.refresh();
-                break;
-            }
-        }
-    }
-
-    public void btnClearOnAction(ActionEvent actionEvent) {
-        txtProductCode.setText("");
-        txtDescription.setText("");
-        txtUnitPrice.setText("");
-        txtQtyOnHand.setText("");
-    }
-
-    public void btnDeleteOnAction(ActionEvent actionEvent) {
-        String code = txtProductCode.getText();
-        String description = txtDescription.getText();
-        double price = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
-
-        try{
-            Product product = new Product(code,description,price, qtyOnHand);
-            boolean isDeleted = ProductModel.delete(product, code);
-            if (isDeleted){
-                new Alert(Alert.AlertType.CONFIRMATION, "Product Deleted Successfully!").show();
-            }else {
-                new Alert(Alert.AlertType.WARNING, "Product not Deleted!").show();
-            }
-        }catch (SQLException | ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        int selectedID = tblProduct.getSelectionModel().getSelectedIndex();
-        tblProduct.getItems().remove(selectedID);
-    }
-
-    public void rowClicked(MouseEvent mouseEvent) {
-        Product clickedProduct = (Product) tblProduct.getSelectionModel().getSelectedItem();
-        txtProductCode.setText(String.valueOf(clickedProduct.getCode()));
-        txtDescription.setText(String.valueOf(clickedProduct.getDescription()));
-        txtUnitPrice.setText(String.valueOf(clickedProduct.getPrice()));
-        txtQtyOnHand.setText(String.valueOf(clickedProduct.getQtyOnHand()));
-    }
-
-    public void txtSearchOnAction(ActionEvent actionEvent) {
-        String code = txtSearch.getText();
-        try{
-            Product product = ProductModel.search(code);
-            if (product != null){
-                fillData(product);
-            }
-        }catch (SQLException | ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void txtProductCodeOnAction(ActionEvent actionEvent) {
-        String code = txtProductCode.getText();
-        try {
-            Product product = ProductModel.search(code);
-            if (product != null){
-                fillData(product);
-            }
-        }catch (SQLException | ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void fillData(Product product){
-        txtProductCode.setText(product.getCode());
-        txtDescription.setText(product.getDescription());
-        txtUnitPrice.setText(String.valueOf(product.getPrice()));
-        txtQtyOnHand.setText(String.valueOf(product.getQtyOnHand()));
-
     }
 
 }

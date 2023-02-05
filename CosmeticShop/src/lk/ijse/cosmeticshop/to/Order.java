@@ -8,12 +8,13 @@ package lk.ijse.cosmeticshop.to;
 import java.time.LocalDate;
 
 public class Order {
+
     private String orderId;
     private LocalDate date;
     private String customerId;
 
 
-    public Order() {
+    public Order(String string, String rstString, String customerId) {
     }
 
     public Order(String orderId, LocalDate date, String customerId) {
@@ -22,7 +23,9 @@ public class Order {
         this.customerId = customerId;
     }
 
+
     public String getOrderId() {
+
         return orderId;
     }
 

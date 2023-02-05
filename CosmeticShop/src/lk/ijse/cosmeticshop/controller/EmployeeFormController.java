@@ -83,28 +83,6 @@ public class EmployeeFormController implements Initializable {
         tblEmployee.setItems(empList);
     }
 
-    public void btnEmployeenAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.EMPLOYEE, pane);
-    }
-
-    public void btnSupplierOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.SUPPLIER, pane);
-    }
-
-    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PRODUCT, pane);
-    }
-
-    public void btnIncomeReportOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.INCOME_REPORT, pane);
-    }
-
-    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.HOME, pane);
-    }
-
-
-
     //form
 
     public void btnAddOnAction(ActionEvent actionEvent) {
@@ -133,13 +111,6 @@ public class EmployeeFormController implements Initializable {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String eId = txtEmployeeID.getText();
-        String name = txtName.getText();
-        String address = txtAddress.getText();
-        double salary = Double.parseDouble(txtSalary.getText());
-        String jobRole = txtJobRole.getText();
-        String secCode = txtSectionCode.getText();
-
         try{
             //Employee employee = new Employee(eId,name,address,salary, jobRole, secCode);
             boolean isUpdated = employeeBO.updateEmployee(new EmployeeDTO(txtEmployeeID.getText(), txtName.getText(), txtAddress.getText(), Double.parseDouble(txtSalary.getText()), txtJobRole.getText(), txtSectionCode.getText()));
@@ -194,14 +165,8 @@ public class EmployeeFormController implements Initializable {
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
         String eId = txtEmployeeID.getText();
-        String name = txtName.getText();
-        String address = txtAddress.getText();
-        double salary = Double.parseDouble(txtSalary.getText());
-        String jobRole = txtJobRole.getText();
-        String secCode = txtSectionCode.getText();
 
         try{
-            //Employee employee = new Employee(eId,name,address,salary, jobRole, secCode);
             boolean isDeleted = employeeBO.deleteEmployee(eId);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee Deleted Successfully!").show();
@@ -266,4 +231,26 @@ public class EmployeeFormController implements Initializable {
     public void OwnerDashboardOnAction(ActionEvent actionEvent) throws IOException {
         Navigation.navigate(Routes.OWNER_DASHBOARD, pane);
     }
+
+    public void btnEmployeenAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.EMPLOYEE, pane);
+    }
+
+    public void btnSupplierOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.SUPPLIER, pane);
+    }
+
+    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PRODUCT, pane);
+    }
+
+    public void btnIncomeReportOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.INCOME_REPORT, pane);
+    }
+
+    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.HOME, pane);
+    }
+
+
 }

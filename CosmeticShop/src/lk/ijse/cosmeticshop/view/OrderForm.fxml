@@ -42,7 +42,7 @@
                         </Label>
                         <Pane layoutX="37.0" layoutY="175.0" prefHeight="760.0" prefWidth="608.0">
                            <children>
-                              <VBox layoutX="22.0" layoutY="147.0" prefHeight="452.0" prefWidth="180.0">
+                              <VBox layoutX="22.0" layoutY="197.0" prefHeight="402.0" prefWidth="180.0">
                                  <children>
                                     <Label prefHeight="53.0" prefWidth="246.0" text="Order Id">
                                        <font>
@@ -60,23 +60,7 @@
                                           <Insets bottom="10.0" top="20.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label prefHeight="53.0" prefWidth="246.0" text="Description">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" top="20.0" />
-                                       </VBox.margin>
-                                    </Label>
                                     <Label prefHeight="53.0" prefWidth="246.0" text="Customer Id">
-                                       <font>
-                                          <Font size="23.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" top="20.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label prefHeight="53.0" prefWidth="246.0" text="Delivery Code">
                                        <font>
                                           <Font size="23.0" />
                                        </font>
@@ -86,9 +70,9 @@
                                     </Label>
                                  </children>
                               </VBox>
-                              <VBox layoutX="220.0" layoutY="151.0" prefHeight="477.0" prefWidth="343.0">
+                              <VBox layoutX="220.0" layoutY="209.0" prefHeight="419.0" prefWidth="343.0">
                                  <children>
-                                    <TextField fx:id="txtOrderId" prefHeight="43.0" prefWidth="346.0">
+                                    <TextField fx:id="txtOrderId" onAction="#OrderIdOnAction" prefHeight="43.0" prefWidth="346.0">
                                        <VBox.margin>
                                           <Insets bottom="20.0" top="20.0" />
                                        </VBox.margin>
@@ -98,17 +82,7 @@
                                           <Insets bottom="20.0" top="20.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <TextField fx:id="txtDescription" prefHeight="43.0" prefWidth="346.0">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" top="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
                                     <TextField fx:id="txtCustomerId" prefHeight="43.0" prefWidth="346.0">
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" top="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="txtDeliveryCode" prefHeight="43.0" prefWidth="346.0">
                                        <VBox.margin>
                                           <Insets bottom="20.0" top="20.0" />
                                        </VBox.margin>
@@ -138,16 +112,14 @@
                            </children>
                         </Pane>
                         <Separator layoutX="672.0" layoutY="212.0" orientation="VERTICAL" prefHeight="667.0" prefWidth="6.0" />
-                        <TableView fx:id="tblOrders" layoutX="714.0" layoutY="326.0" prefHeight="435.0" prefWidth="781.0">
+                        <TableView fx:id="tblOrders" layoutX="714.0" layoutY="326.0" onMouseClicked="#rowClicked" prefHeight="435.0" prefWidth="781.0">
                            <columns>
-                              <TableColumn prefWidth="132.0" text="Order Id" />
-                              <TableColumn prefWidth="119.3333740234375" text="Order Date" />
-                              <TableColumn prefWidth="232.6666259765625" text="Description" />
-                              <TableColumn prefWidth="155.3333740234375" text="Customer Id" />
-                              <TableColumn prefWidth="141.3333740234375" text="Delivery Code" />
+                              <TableColumn fx:id="colOrderId" prefWidth="210.0" text="Order Id" />
+                              <TableColumn fx:id="colOrderDate" prefWidth="269.0" text="Order Date" />
+                              <TableColumn fx:id="colCustomerId" prefWidth="301.0" text="Customer Id" />
                            </columns>
                         </TableView>
-                        <JFXTextField fx:id="txtSearch" layoutX="764.0" layoutY="220.0" prefHeight="53.0" prefWidth="416.0" promptText="Search Order">
+                        <JFXTextField fx:id="txtSearch" layoutX="764.0" layoutY="220.0" onAction="#txtSearchOnAction" prefHeight="53.0" prefWidth="416.0" promptText="Search Order">
                            <font>
                               <Font size="20.0" />
                            </font>
