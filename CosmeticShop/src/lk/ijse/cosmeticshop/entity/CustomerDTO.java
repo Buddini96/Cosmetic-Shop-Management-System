@@ -12,7 +12,7 @@ public class CustomerDTO {
     String address;
     String contact;
 
-    public CustomerDTO() {
+    public CustomerDTO(String string, String rstString, int anInt, String contact) {
     }
 
     public CustomerDTO(String customerID, String name, String address, String contact) {
