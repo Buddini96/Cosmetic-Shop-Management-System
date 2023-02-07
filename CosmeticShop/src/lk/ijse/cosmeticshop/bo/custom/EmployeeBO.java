@@ -7,8 +7,7 @@ package lk.ijse.cosmeticshop.bo.custom;
 
 
 import lk.ijse.cosmeticshop.bo.SuperBO;
-import lk.ijse.cosmeticshop.entity.CustomerDTO;
-import lk.ijse.cosmeticshop.entity.EmployeeDTO;
+import lk.ijse.cosmeticshop.model.EmployeeDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

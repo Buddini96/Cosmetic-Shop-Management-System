@@ -15,14 +15,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.cosmeticshop.model.CustomerModel;
-import lk.ijse.cosmeticshop.model.OrderModel;
-import lk.ijse.cosmeticshop.model.PlaceOrderModel;
-import lk.ijse.cosmeticshop.model.ProductModel;
-import lk.ijse.cosmeticshop.to.CartDetail;
-import lk.ijse.cosmeticshop.to.Customer;
-import lk.ijse.cosmeticshop.to.PlaceOrder;
-import lk.ijse.cosmeticshop.to.Product;
+import lk.ijse.cosmeticshop.modelOld.CustomerModel;
+import lk.ijse.cosmeticshop.modelOld.OrderModel;
+import lk.ijse.cosmeticshop.modelOld.PlaceOrderModel;
+import lk.ijse.cosmeticshop.modelOld.ProductModel;
+import lk.ijse.cosmeticshop.view.tdm.CartDetail;
+import lk.ijse.cosmeticshop.view.tdm.Customer;
+import lk.ijse.cosmeticshop.view.tdm.PlaceOrder;
+import lk.ijse.cosmeticshop.view.tdm.Product;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
 import lk.ijse.cosmeticshop.view.tm.PlaceOrderTM;
@@ -71,22 +71,6 @@ public class PlaceOrderFormController implements Initializable {
         setCellValueFactory();
     }
 
-    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.CUSTOMER, pane);
-    }
-
-    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PRODUCT_ADMIN, pane);
-    }
-
-    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.ORDER, pane);
-    }
-
-    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.PLACE_ORDER, pane);
-    }
-
     private void loadNextOrderId() {
         try {
             String orderId = OrderModel.generateNextOrderId();
@@ -131,18 +115,6 @@ public class PlaceOrderFormController implements Initializable {
         colPrice.setCellValueFactory(new PropertyValueFactory("unitPrice"));
         colTotal.setCellValueFactory(new PropertyValueFactory("total"));
         colAction.setCellValueFactory(new PropertyValueFactory("btnDelete"));
-    }
-
-    private void loadOrderDate() {
-        txtOrderDate.setText(String.valueOf(LocalDate.now()));
-    }
-
-    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.HOME, pane);
-    }
-
-    public void btnDelveryOnAction(ActionEvent actionEvent) throws IOException {
-        Navigation.navigate(Routes.DELIVERY, pane);
     }
 
     public void btnAddToCartOnAction(ActionEvent actionEvent) {
@@ -268,5 +240,33 @@ public class PlaceOrderFormController implements Initializable {
 
 
     public void btnPrintReportOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnCustomerOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.CUSTOMER, pane);
+    }
+
+    public void btnProductsOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PRODUCT_ADMIN, pane);
+    }
+
+    public void btnOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.ORDER, pane);
+    }
+
+    public void btnPlaceOrderOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.PLACE_ORDER, pane);
+    }
+
+    private void loadOrderDate() {
+        txtOrderDate.setText(String.valueOf(LocalDate.now()));
+    }
+
+    public void btnLogOutOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.HOME, pane);
+    }
+
+    public void btnDelveryOnAction(ActionEvent actionEvent) throws IOException {
+        Navigation.navigate(Routes.DELIVERY, pane);
     }
 }

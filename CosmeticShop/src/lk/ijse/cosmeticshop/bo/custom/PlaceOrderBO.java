@@ -7,6 +7,11 @@ package lk.ijse.cosmeticshop.bo.custom;
 
 
 import lk.ijse.cosmeticshop.bo.SuperBO;
+import lk.ijse.cosmeticshop.model.ProductDTO;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface PlaceOrderBO extends SuperBO {
+    ArrayList<ProductDTO> getAllProduct() throws SQLException, ClassNotFoundException;
 }

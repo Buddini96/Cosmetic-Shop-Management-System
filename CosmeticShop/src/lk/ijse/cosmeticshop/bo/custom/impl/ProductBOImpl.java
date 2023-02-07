@@ -9,7 +9,7 @@ package lk.ijse.cosmeticshop.bo.custom.impl;
 import lk.ijse.cosmeticshop.bo.custom.ProductBO;
 import lk.ijse.cosmeticshop.dao.DAOFactory;
 import lk.ijse.cosmeticshop.dao.custom.ProductDAO;
-import lk.ijse.cosmeticshop.entity.ProductDTO;
+import lk.ijse.cosmeticshop.model.ProductDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

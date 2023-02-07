@@ -1,4 +1,4 @@
-package lk.ijse.cosmeticshop.model;
+package lk.ijse.cosmeticshop.modelOld;
 
 /*
     @author BUDDINI
@@ -6,8 +6,8 @@ package lk.ijse.cosmeticshop.model;
 */
 
 
-import lk.ijse.cosmeticshop.entity.CustomerDTO;
-import lk.ijse.cosmeticshop.to.Customer;
+import lk.ijse.cosmeticshop.model.CustomerDTO;
+import lk.ijse.cosmeticshop.view.tdm.Customer;
 import lk.ijse.cosmeticshop.dao.CrudUtil;
 
 import java.sql.ResultSet;

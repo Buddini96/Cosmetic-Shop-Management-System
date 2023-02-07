@@ -35,9 +35,9 @@ public class DAOFactory {
             case SUPPLIER:
                 return new SupplierDAOImpl();
             case ORDER:
-                return null;
+                return new OrderDAOImpl();
             case ORDER_DETAILS:
-                return null;
+                return new OrderDetailsDAOImpl();
 
             default:
                 return null;

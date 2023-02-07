@@ -16,9 +16,8 @@ import lk.ijse.cosmeticshop.bo.BOFactory;
 import lk.ijse.cosmeticshop.bo.custom.EmployeeBO;
 import lk.ijse.cosmeticshop.dao.custom.EmployeeDAO;
 import lk.ijse.cosmeticshop.dao.custom.impl.EmployeeDAOImpl;
-import lk.ijse.cosmeticshop.entity.EmployeeDTO;
-import lk.ijse.cosmeticshop.model.EmployeeModel;
-import lk.ijse.cosmeticshop.to.Employee;
+import lk.ijse.cosmeticshop.model.EmployeeDTO;
+import lk.ijse.cosmeticshop.modelOld.EmployeeModel;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
 

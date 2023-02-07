@@ -1,12 +1,12 @@
-package lk.ijse.cosmeticshop.model;
+package lk.ijse.cosmeticshop.modelOld;
 
 /*
     @author BUDDINI
     @created 11/26/2022 - 8:12 PM   
 */
 
-import lk.ijse.cosmeticshop.entity.EmployeeDTO;
-import lk.ijse.cosmeticshop.to.Employee;
+import lk.ijse.cosmeticshop.model.EmployeeDTO;
+import lk.ijse.cosmeticshop.view.tdm.Employee;
 import lk.ijse.cosmeticshop.dao.CrudUtil;
 import java.sql.ResultSet;
 import java.sql.SQLException;

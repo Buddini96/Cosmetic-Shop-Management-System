@@ -13,16 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.cosmeticshop.bo.BOFactory;
-import lk.ijse.cosmeticshop.bo.custom.CustomerBO;
 import lk.ijse.cosmeticshop.bo.custom.OrderBO;
-import lk.ijse.cosmeticshop.dao.custom.CustomerDAO;
 import lk.ijse.cosmeticshop.dao.custom.OrderDAO;
-import lk.ijse.cosmeticshop.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.cosmeticshop.dao.custom.impl.OrderDAOImpl;
-import lk.ijse.cosmeticshop.entity.CustomerDTO;
-import lk.ijse.cosmeticshop.entity.OrderDTO;
-import lk.ijse.cosmeticshop.model.CustomerModel;
-import lk.ijse.cosmeticshop.model.OrderModel;
+import lk.ijse.cosmeticshop.model.OrderDTO;
+import lk.ijse.cosmeticshop.modelOld.OrderModel;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
 
@@ -31,8 +26,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class OrderFormController implements Initializable {
     public AnchorPane pane;

@@ -1,4 +1,4 @@
-package lk.ijse.cosmeticshop.model;
+package lk.ijse.cosmeticshop.modelOld;
 
 /*
     @author BUDDINI
@@ -6,7 +6,7 @@ package lk.ijse.cosmeticshop.model;
 */
 
 
-import lk.ijse.cosmeticshop.to.CartDetail;
+import lk.ijse.cosmeticshop.view.tdm.CartDetail;
 import lk.ijse.cosmeticshop.dao.CrudUtil;
 
 import java.sql.SQLException;

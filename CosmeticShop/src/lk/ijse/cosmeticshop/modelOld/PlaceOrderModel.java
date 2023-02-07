@@ -1,4 +1,4 @@
-package lk.ijse.cosmeticshop.model;
+package lk.ijse.cosmeticshop.modelOld;
 
 /*
     @author BUDDINI
@@ -6,8 +6,7 @@ package lk.ijse.cosmeticshop.model;
 */
 
 import lk.ijse.cosmeticshop.db.DBConnection;
-import lk.ijse.cosmeticshop.to.Order;
-import lk.ijse.cosmeticshop.to.PlaceOrder;
+
 
 import java.sql.SQLException;
 import java.time.LocalDate;

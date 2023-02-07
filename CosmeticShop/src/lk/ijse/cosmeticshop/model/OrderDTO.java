@@ -1,4 +1,4 @@
-package lk.ijse.cosmeticshop.entity;
+package lk.ijse.cosmeticshop.model;
 
 /*
     @author BUDDINI
@@ -6,12 +6,14 @@ package lk.ijse.cosmeticshop.entity;
 */
 
 
+import java.time.LocalDate;
+
 public class OrderDTO {
     String orderID;
     String orderDate;
     String customerID;
 
-    public OrderDTO() {
+    public OrderDTO(String orderID, LocalDate now, String customerID) {
     }
 
     public OrderDTO(String orderID, String orderDate, String customerID) {

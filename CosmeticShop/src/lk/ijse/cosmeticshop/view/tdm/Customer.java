@@ -1,4 +1,4 @@
-package lk.ijse.cosmeticshop.to;
+package lk.ijse.cosmeticshop.view.tdm;
 
 /*
     @author BUDDINI

@@ -1,33 +1,33 @@
-package lk.ijse.cosmeticshop.entity;
+package lk.ijse.cosmeticshop.model;
 
 /*
     @author BUDDINI
-    @created 1/29/2023 - 9:15 AM   
+    @created 1/29/2023 - 9:17 AM   
 */
 
 
-public class OrderDetailDTO {
-    String orderID;
+public class SupplierDetailDTO {
+    String supplierID;
     String productCode;
-    int Qty;
+    int qty;
     double sellingPrice;
 
-    public OrderDetailDTO() {
+    public SupplierDetailDTO() {
     }
 
-    public OrderDetailDTO(String orderID, String productCode, int qty, double sellingPrice) {
-        this.orderID = orderID;
+    public SupplierDetailDTO(String supplierID, String productCode, int qty, double sellingPrice) {
+        this.supplierID = supplierID;
         this.productCode = productCode;
-        Qty = qty;
+        this.qty = qty;
         this.sellingPrice = sellingPrice;
     }
 
-    public String getOrderID() {
-        return orderID;
+    public String getSupplierID() {
+        return supplierID;
     }
 
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
+    public void setSupplierID(String supplierID) {
+        this.supplierID = supplierID;
     }
 
     public String getProductCode() {
@@ -39,11 +39,11 @@ public class OrderDetailDTO {
     }
 
     public int getQty() {
-        return Qty;
+        return qty;
     }
 
     public void setQty(int qty) {
-        Qty = qty;
+        this.qty = qty;
     }
 
     public double getSellingPrice() {
@@ -56,10 +56,10 @@ public class OrderDetailDTO {
 
     @Override
     public String toString() {
-        return "OrderDetail{" +
-                "orderID='" + orderID + '\'' +
+        return "SupplierDetail{" +
+                "supplierID='" + supplierID + '\'' +
                 ", productCode='" + productCode + '\'' +
-                ", Qty=" + Qty +
+                ", qty=" + qty +
                 ", sellingPrice=" + sellingPrice +
                 '}';
     }

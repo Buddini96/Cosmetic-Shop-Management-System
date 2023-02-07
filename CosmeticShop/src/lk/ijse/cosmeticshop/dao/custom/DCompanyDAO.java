@@ -7,7 +7,7 @@ package lk.ijse.cosmeticshop.dao.custom;
 
 
 import lk.ijse.cosmeticshop.dao.CrudDAO;
-import lk.ijse.cosmeticshop.entity.DCompanyDTO;
+import lk.ijse.cosmeticshop.model.DCompanyDTO;
 
 public interface DCompanyDAO extends CrudDAO<DCompanyDTO> {
 }

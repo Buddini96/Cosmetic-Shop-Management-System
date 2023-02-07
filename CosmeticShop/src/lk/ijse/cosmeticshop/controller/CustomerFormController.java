@@ -13,13 +13,11 @@ import lk.ijse.cosmeticshop.bo.BOFactory;
 import lk.ijse.cosmeticshop.bo.custom.CustomerBO;
 import lk.ijse.cosmeticshop.dao.custom.CustomerDAO;
 import lk.ijse.cosmeticshop.dao.custom.impl.CustomerDAOImpl;
-import lk.ijse.cosmeticshop.model.CustomerModel;
-import lk.ijse.cosmeticshop.model.ProductModel;
-import lk.ijse.cosmeticshop.to.Product;
+import lk.ijse.cosmeticshop.modelOld.CustomerModel;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
 
-import lk.ijse.cosmeticshop.entity.CustomerDTO;
+import lk.ijse.cosmeticshop.model.CustomerDTO;
 
 import java.io.IOException;
 import java.net.URL;

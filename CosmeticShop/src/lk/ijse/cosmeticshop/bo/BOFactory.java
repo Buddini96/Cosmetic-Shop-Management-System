@@ -40,9 +40,9 @@ public class BOFactory {
             case SUPPLIER:
                 return new SupplierBOImpl();
             case ORDER:
-                return null;
+                return new OrderBOImpl();
             case ORDER_DETAILS:
-                return null;
+                return new OrderDetailBOImpl();
 
             default:
                 return null;

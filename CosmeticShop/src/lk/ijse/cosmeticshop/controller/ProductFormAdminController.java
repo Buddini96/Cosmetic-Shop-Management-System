@@ -16,8 +16,8 @@ import lk.ijse.cosmeticshop.bo.BOFactory;
 import lk.ijse.cosmeticshop.bo.custom.ProductBO;
 import lk.ijse.cosmeticshop.dao.custom.ProductDAO;
 import lk.ijse.cosmeticshop.dao.custom.impl.ProductDAOImpl;
-import lk.ijse.cosmeticshop.entity.ProductDTO;
-import lk.ijse.cosmeticshop.model.ProductModel;
+import lk.ijse.cosmeticshop.model.ProductDTO;
+import lk.ijse.cosmeticshop.modelOld.ProductModel;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
 

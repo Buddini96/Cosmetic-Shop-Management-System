@@ -1,4 +1,4 @@
-package lk.ijse.cosmeticshop.entity;
+package lk.ijse.cosmeticshop.model;
 
 /*
     @author BUDDINI

@@ -1,12 +1,12 @@
-package lk.ijse.cosmeticshop.model;
+package lk.ijse.cosmeticshop.modelOld;
 
 /*
     @author BUDDINI
     @created 11/29/2022 - 8:15 PM   
 */
 
-import lk.ijse.cosmeticshop.entity.OrderDTO;
-import lk.ijse.cosmeticshop.to.Order;
+import lk.ijse.cosmeticshop.model.OrderDTO;
+import lk.ijse.cosmeticshop.view.tdm.Order;
 import lk.ijse.cosmeticshop.dao.CrudUtil;
 
 import java.sql.ResultSet;

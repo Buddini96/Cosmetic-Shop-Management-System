@@ -14,14 +14,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.cosmeticshop.bo.BOFactory;
 import lk.ijse.cosmeticshop.bo.custom.DCompanyBO;
-import lk.ijse.cosmeticshop.dao.custom.CustomerDAO;
 import lk.ijse.cosmeticshop.dao.custom.DCompanyDAO;
-import lk.ijse.cosmeticshop.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.cosmeticshop.dao.custom.impl.DCompanyDAOImpl;
-import lk.ijse.cosmeticshop.entity.CustomerDTO;
-import lk.ijse.cosmeticshop.entity.DCompanyDTO;
-import lk.ijse.cosmeticshop.model.DeliveryModel;
-import lk.ijse.cosmeticshop.to.Delivery;
+import lk.ijse.cosmeticshop.model.DCompanyDTO;
+import lk.ijse.cosmeticshop.modelOld.DeliveryModel;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
 

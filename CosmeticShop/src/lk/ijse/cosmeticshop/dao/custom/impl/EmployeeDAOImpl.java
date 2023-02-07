@@ -8,8 +8,7 @@ package lk.ijse.cosmeticshop.dao.custom.impl;
 
 import lk.ijse.cosmeticshop.dao.CrudUtil;
 import lk.ijse.cosmeticshop.dao.custom.EmployeeDAO;
-import lk.ijse.cosmeticshop.entity.CustomerDTO;
-import lk.ijse.cosmeticshop.entity.EmployeeDTO;
+import lk.ijse.cosmeticshop.model.EmployeeDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
