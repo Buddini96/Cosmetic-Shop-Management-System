@@ -41,4 +41,9 @@ public class ProductBOImpl implements ProductBO {
     public ProductDTO searchProduct(String id) throws SQLException, ClassNotFoundException {
         return productDAO.search(id);
     }
+
+    @Override
+    public ArrayList<String> loadProductCodes() throws SQLException, ClassNotFoundException {
+        return productDAO.loadProductCodes();
+    }
 }

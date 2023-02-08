@@ -59,7 +59,7 @@ public class SupplierFormController implements Initializable {
         ObservableList<SupplierDTO> supList = FXCollections.observableArrayList();
 
         try{
-            ArrayList<SupplierDTO> suppliersData = SupplierModel.getSupplierData();
+            ArrayList<SupplierDTO> suppliersData = supplierBO.getAllSupplier();
             for (SupplierDTO supplier:suppliersData){
                 if(supplier.getSupplierID().contains(text) || supplier.getName().contains(text)){
                     SupplierDTO s = new SupplierDTO(supplier.getSupplierID(), supplier.getName(), supplier.getDescription());

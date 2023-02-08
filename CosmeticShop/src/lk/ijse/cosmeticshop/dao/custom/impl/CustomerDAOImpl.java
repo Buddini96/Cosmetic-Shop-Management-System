@@ -49,4 +49,18 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return null;
     }
+
+    public ArrayList loadCustomerIds() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT customerID FROM Customer";
+        ResultSet result = CrudUtil.execute(sql);
+
+        ArrayList<String> idList = new ArrayList<>();
+
+        while (result.next()){
+            idList.add(result.getString(1));
+        }
+        return idList;
+    }
+
+
 }

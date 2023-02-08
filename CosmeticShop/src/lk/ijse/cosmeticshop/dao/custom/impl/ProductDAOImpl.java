@@ -52,4 +52,16 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return null;
     }
+
+    public ArrayList<String> loadProductCodes() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT productCode FROM Product";
+        ResultSet result = CrudUtil.execute(sql);
+
+        ArrayList<String> codeList = new ArrayList<>();
+
+        while (result.next()) {
+            codeList.add(result.getString(1));
+        }
+        return codeList;
+    }
 }

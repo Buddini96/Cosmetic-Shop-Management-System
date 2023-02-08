@@ -7,8 +7,10 @@ package lk.ijse.cosmeticshop.bo.custom;
 
 
 import lk.ijse.cosmeticshop.bo.SuperBO;
+import lk.ijse.cosmeticshop.dao.CrudUtil;
 import lk.ijse.cosmeticshop.model.ProductDTO;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -22,4 +24,6 @@ public interface ProductBO extends SuperBO {
     boolean deleteProduct(String id) throws SQLException, ClassNotFoundException;
 
     ProductDTO searchProduct(String id) throws SQLException, ClassNotFoundException;
+
+    public ArrayList<String> loadProductCodes() throws SQLException, ClassNotFoundException;
 }

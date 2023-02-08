@@ -68,7 +68,7 @@ public class EmployeeFormController implements Initializable {
         ObservableList<EmployeeDTO> empList = FXCollections.observableArrayList();
 
         try{
-            ArrayList<EmployeeDTO> employeesData = EmployeeModel.getEmployeeData();
+            ArrayList<EmployeeDTO> employeesData = employeeBO.getAllEmployee();
             for (EmployeeDTO employee:employeesData){
                 if(employee.getEmployeeID().contains(text) || employee.getName().contains(text)){
                     EmployeeDTO e = new EmployeeDTO(employee.getEmployeeID(), employee.getName(), employee.getAddress(), employee.getSalary(), employee.getJobRole(), employee.getSectionCode());

@@ -67,7 +67,7 @@ public class CustomerFormController implements Initializable {
     private void loadAllCustomers(String text) {
         ObservableList<CustomerDTO> cusList = FXCollections.observableArrayList();
         try{
-            ArrayList<CustomerDTO> customerData = CustomerModel.getCustomerData();
+            ArrayList<CustomerDTO> customerData = customerBO.getAll();
             for (CustomerDTO customer:customerData){
                 if(customer.getCustomerID().contains(text) || customer.getName().contains(text)){
                     CustomerDTO c = new CustomerDTO(customer.getCustomerID(), customer.getName(), customer.getAddress(), customer.getContact());

@@ -58,7 +58,7 @@ public class DeliveryFormController implements Initializable {
     private void loadAllDeliveries(String text) {
         ObservableList<DCompanyDTO> delList = FXCollections.observableArrayList();
         try{
-            ArrayList<DCompanyDTO> deliveriesData = DeliveryModel.getDeliveryData();
+            ArrayList<DCompanyDTO> deliveriesData = dCompanyBO.getAllDCompany();
             for (DCompanyDTO delivery:deliveriesData){
                 if(delivery.getDeliveryCode().contains(text) || delivery.getName().contains(text)){
                     DCompanyDTO d = new DCompanyDTO(delivery.getDeliveryCode(), delivery.getName(), delivery.getPayment());

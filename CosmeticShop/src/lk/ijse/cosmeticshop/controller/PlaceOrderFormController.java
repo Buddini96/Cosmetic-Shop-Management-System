@@ -15,14 +15,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.cosmeticshop.modelOld.CustomerModel;
+import lk.ijse.cosmeticshop.bo.BOFactory;
+import lk.ijse.cosmeticshop.bo.custom.CustomerBO;
+import lk.ijse.cosmeticshop.bo.custom.ProductBO;
+import lk.ijse.cosmeticshop.bo.custom.QueryBO;
+import lk.ijse.cosmeticshop.model.CustomerDTO;
+import lk.ijse.cosmeticshop.model.ProductDTO;
 import lk.ijse.cosmeticshop.modelOld.OrderModel;
-import lk.ijse.cosmeticshop.modelOld.PlaceOrderModel;
-import lk.ijse.cosmeticshop.modelOld.ProductModel;
 import lk.ijse.cosmeticshop.view.tdm.CartDetail;
-import lk.ijse.cosmeticshop.view.tdm.Customer;
 import lk.ijse.cosmeticshop.view.tdm.PlaceOrder;
-import lk.ijse.cosmeticshop.view.tdm.Product;
 import lk.ijse.cosmeticshop.util.Navigation;
 import lk.ijse.cosmeticshop.util.Routes;
 import lk.ijse.cosmeticshop.view.tm.PlaceOrderTM;
@@ -61,8 +62,10 @@ public class PlaceOrderFormController implements Initializable {
     public TextField txtOrderDate;
 
     private ObservableList<PlaceOrderTM> obList = FXCollections.observableArrayList();
+    CustomerBO customerBO= (CustomerBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+    ProductBO productBO= (ProductBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.PRODUCT);
+    QueryBO queryBO= (QueryBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.QUERYBO);
 
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadOrderDate();
         loadCustomerIds();
@@ -83,7 +86,7 @@ public class PlaceOrderFormController implements Initializable {
     private void loadCustomerIds() {
         try {
             ObservableList<String> observableList = FXCollections.observableArrayList();
-            ArrayList<String> idList = CustomerModel.loadCustomerIds();
+            ArrayList<String> idList = customerBO.loadCustomerIds();
 
             for (String id : idList) {
                 observableList.add(id);
@@ -97,7 +100,7 @@ public class PlaceOrderFormController implements Initializable {
     private void loadProductCodes() {
         try {
             ObservableList<String> observableList = FXCollections.observableArrayList();
-            ArrayList<String> itemList = ProductModel.loadProductCodes();
+            ArrayList<String> itemList = productBO.loadProductCodes();
 
             for (String code : itemList) {
                 observableList.add(code);
@@ -172,21 +175,21 @@ public class PlaceOrderFormController implements Initializable {
     public void cmbCustomerIdOnAction(ActionEvent actionEvent) {
         String id = String.valueOf(cmbCustomerId.getValue());
         try {
-            Customer customer = CustomerModel.search(id);
+            CustomerDTO customer = customerBO.search(id);
             fillCustomerFields(customer);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void fillCustomerFields(Customer customer) {
+    private void fillCustomerFields(CustomerDTO customer) {
         txtCustomerName.setText(customer.getName());
     }
 
     public void cmbProductCodeOnAction(ActionEvent actionEvent) {
         String code = String.valueOf(cmbProductCode.getValue());
         try {
-            Product product = ProductModel.search(code);
+            ProductDTO product = productBO.searchProduct(code);
             fillProductFields(product);
             txtQty.requestFocus();
         } catch (SQLException | ClassNotFoundException e) {
@@ -194,13 +197,14 @@ public class PlaceOrderFormController implements Initializable {
         }
     }
 
-    private void fillProductFields(Product product) {
+    private void fillProductFields(ProductDTO product) {
         txtDescription.setText(product.getDescription());
-        txtPrice.setText(String.valueOf(product.getPrice()));
+        txtPrice.setText(String.valueOf(product.getUnitprice()));
         txtQtyOnHand.setText(String.valueOf(product.getQtyOnHand()));
     }
 
     public void btnPlaceOrderCartOnAction(ActionEvent actionEvent) {
+
         String orderId = txtOrderId.getText();
         String customerId = String.valueOf(cmbCustomerId.getValue());
 
@@ -213,7 +217,7 @@ public class PlaceOrderFormController implements Initializable {
 
         PlaceOrder placeOrder = new PlaceOrder(customerId, orderId, cartDetails);
         try {
-            boolean isPlaced = PlaceOrderModel.placeOrder(placeOrder);
+            boolean isPlaced = queryBO.placeOrder(placeOrder);
             if (isPlaced) {
                 obList.clear();
                 loadNextOrderId();
