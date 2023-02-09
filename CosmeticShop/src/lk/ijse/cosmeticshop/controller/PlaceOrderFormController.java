@@ -20,6 +20,7 @@ import lk.ijse.cosmeticshop.bo.custom.CustomerBO;
 import lk.ijse.cosmeticshop.bo.custom.ProductBO;
 import lk.ijse.cosmeticshop.bo.custom.QueryBO;
 import lk.ijse.cosmeticshop.model.CustomerDTO;
+import lk.ijse.cosmeticshop.model.PlaceOrderDTO;
 import lk.ijse.cosmeticshop.model.ProductDTO;
 import lk.ijse.cosmeticshop.modelOld.OrderModel;
 import lk.ijse.cosmeticshop.view.tdm.CartDetail;
@@ -215,9 +216,9 @@ public class PlaceOrderFormController implements Initializable {
             cartDetails.add(new CartDetail(orderId, tm.getCode(), tm.getQty(), tm.getDescription(), tm.getUnitPrice()));
         }
 
-        PlaceOrder placeOrder = new PlaceOrder(customerId, orderId, cartDetails);
+       // PlaceOrderDTO placeOrder = new PlaceOrderDTO(customerId, orderId, cartDetails);
         try {
-            boolean isPlaced = queryBO.placeOrder(placeOrder);
+            boolean isPlaced = queryBO.placeOrder(new PlaceOrderDTO(customerId, orderId, CartDetail.));
             if (isPlaced) {
                 obList.clear();
                 loadNextOrderId();

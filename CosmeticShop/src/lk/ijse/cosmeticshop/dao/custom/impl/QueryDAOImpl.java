@@ -26,7 +26,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class QueryDAOImpl implements QueryDAO {
-    public static boolean placeOrder(PlaceOrderDTO placeOrderDTO) throws SQLException, ClassNotFoundException {
+    public  boolean placeOrder(PlaceOrderDTO placeOrderDTO) throws SQLException, ClassNotFoundException {
         try {
 
             DBConnection.getInstance().getConnection().setAutoCommit(false);
@@ -52,7 +52,7 @@ public class QueryDAOImpl implements QueryDAO {
         }
     }
 
-    public static boolean updateQty(ArrayList<CartDetail> cartDetails) throws SQLException, ClassNotFoundException {
+    public  boolean updateQty(ArrayList<CartDetail> cartDetails) throws SQLException, ClassNotFoundException {
         ProductDAOImpl productDAO = new ProductDAOImpl();
         for (CartDetail cartDetail : cartDetails) {
             if (!productDAO.update(new ProductDTO(cartDetail.getCode(), cartDetail.getDescription(), cartDetail.getUnitPrice(), cartDetail.getQty()))) {
@@ -62,7 +62,7 @@ public class QueryDAOImpl implements QueryDAO {
         return true;
     }
 
-    public static boolean saveOrderDetails(ArrayList<CartDetail> cartDetails) throws SQLException, ClassNotFoundException {
+    public boolean saveOrderDetails(ArrayList<CartDetail> cartDetails) throws SQLException, ClassNotFoundException {
         OrderDetailsDAOImpl orderDetailsDAO = new OrderDetailsDAOImpl();
         for (CartDetail cartDetail : cartDetails) {
             if (!orderDetailsDAO.add(new OrderDetailDTO(cartDetail.getOrderId(), cartDetail.getCode(), cartDetail.getQty(), cartDetail.getUnitPrice()))) {
